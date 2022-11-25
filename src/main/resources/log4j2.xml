@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+    <Properties>
+        <Property name="LOG_PATTERN">
+            %d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${hostName}---[%5.5t] %-20.20c{1} : %m%n%ex
+        </Property>
+        <Property name="APP_LOG_ROOT">${env:LOG_ROOT:-log}</Property>
+        <Property name="FLUENT_HOST">${env:FLUENT_HOST:-host}</Property>
+        <Property name="FLUENT_PORT">${env:FLUENT_PORT:-0}</Property>
+        <Property name="APPENDER_TYPE">${env:LOGGER_APPENDER:-Text}</Property>
+    </Properties>
+    <Appenders>
+        <!-- Console Appenders -->
+        <Console name="ConsoleTextAppender" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${LOG_PATTERN}" />
+        </Console>
+        <Console name="ConsoleJsonAppender" target="SYSTEM_OUT" follow="true">
+            <JsonLayout objectMessageAsJsonObject="true"/>
+        </Console>
+        <!-- Rolling File Appenders -->
+        <RollingFile name="FileJsonAppender" fileName="${APP_LOG_ROOT}/log.log"
+                     filePattern="${APP_LOG_ROOT}/log-%d{yyyy-MM-dd}-%i.log">
+            <JsonLayout objectMessageAsJsonObject="true" compact="true" eventEol="true"  />
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+        <RollingFile name="FileTextAppender" fileName="${APP_LOG_ROOT}/log.log"
+                     filePattern="${APP_LOG_ROOT}/log-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout>
+                <Pattern>${LOG_PATTERN}</Pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+        <!-- Socket Appender for AWS logging -->
+        <!-- <Socket name="socketAppender" host="${FLUENT_HOST}" port="${FLUENT_PORT}">
+            <PatternLayout pattern="${LOG_PATTERN}" />
+            <JsonLayout properties="true"/>
+        </Socket> -->
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console${APPENDER_TYPE}Appender" />
+            <AppenderRef ref="FileTextAppender" />
+        </Root>
+    </Loggers>
+
+</Configuration>

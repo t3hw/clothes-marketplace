@@ -1,0 +1,20 @@
+version: '3.3'
+services:
+  db:
+    image: mysql:8.0.31
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: 'admin'
+      MYSQL_PASSWORD: 'admin123'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - my-db:/var/lib/mysql
+      - "./scripts/schema.sql:/docker-entrypoint-initdb.d/1.sql"
+      - "./scripts/data.sql:/docker-entrypoint-initdb.d/2.sql"
+volumes:
+  my-db:

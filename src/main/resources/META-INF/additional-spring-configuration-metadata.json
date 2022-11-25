@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "clothes-marketplace.env",
+    "type": "java.lang.String",
+    "description": "A description for 'clothes-marketplace.env'"
+  },
+  {
+    "name": "clothes-marketplace.thread-pool-size",
+    "type": "java.lang.String",
+    "description": "A description for 'clothes-marketplace.thread-pool-size'"
+  }
+]}

@@ -1,0 +1,64 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.245.0/containers/java
+{
+	"name": "Clothes-Marketplace",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"args": {
+			// Update the VARIANT arg to pick a Java version: 11, 17
+			// Append -bullseye or -buster to pin to an OS version.
+			// Use the -bullseye variants on local arm64/Apple Silicon.
+			"VARIANT": "0-17",
+			// Options
+			"INSTALL_MAVEN": "true",
+			"INSTALL_GRADLE": "false"
+		}
+	},	
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [8084],
+    
+
+	// Configure tool-specific properties.
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			// Set *default* container specific settings.json values on container create.
+			"settings": { 
+			},
+			
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				"vscjava.vscode-java-dependency",
+				"GabrielBB.vscode-lombok",
+				"vscjava.vscode-java-pack",
+				"vscjava.vscode-java-test",
+				"vscjava.vscode-maven",
+				"vscjava.vscode-spring-initializr",
+				"Pivotal.vscode-spring-boot",
+				"Pivotal.vscode-boot-dev-pack",
+				"vscjava.vscode-spring-boot-dashboard",
+				"vscjava.vscode-java-debug",
+				"eamodio.gitlens",
+				"redhat.vscode-yaml",
+				"redhat.vscode-xml",
+				"atlassian.atlascode",
+				"redhat.fabric8-analytics",
+				"lukebatchelor.code-bitbucket-pipelines",
+				"RamiroBerrelleza.bitbucket-pull-requests",
+				"esbenp.prettier-vscode"
+			]
+		}
+	},
+
+	// Uncomment the next line to run commands after the container is created - for example installing curl.
+	"postCreateCommand": "./.devcontainer/devcontainer.sh",
+
+	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+	// "remoteUser": "vscode",
+	"features": {
+		"docker-from-docker": "latest",
+		"git": "os-provided",
+		"aws-cli": "latest"
+	}
+}

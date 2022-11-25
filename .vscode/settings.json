@@ -1,0 +1,9 @@
+{
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.dependency.packagePresentation": "hierarchical",
+    "java.dependency.syncWithFolderExplorer": true,
+    "editor.detectIndentation": false,
+    "java.import.gradle.wrapper.enabled": false,
+    "java.import.gradle.enabled": false,
+    "gradle.autoDetect": "off"
+}

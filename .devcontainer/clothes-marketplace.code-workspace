@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "../../clothes-marketplace-swagger"
+		}
+	],
+    "settings": {
+        "java.configuration.updateBuildConfiguration": "interactive",
+        "java.dependency.packagePresentation": "hierarchical",
+        "java.dependency.syncWithFolderExplorer": true,
+        "java.import.gradle.wrapper.enabled": false,
+        "java.import.gradle.enabled": false
+    }
+}

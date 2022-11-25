@@ -1,0 +1,15 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-<clothes_marketplace>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.ravid.clothes_marketplace.app.Application",
+            "projectName": "clothes_marketplace",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

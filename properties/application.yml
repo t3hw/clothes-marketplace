@@ -1,0 +1,42 @@
+springdoc:
+    packages-to-scan: com.ravid.clothes_marketplace.server
+    swagger-ui:
+        use-root-path: true
+
+server: 
+    http2: 
+        enabled: true
+    port: 2000
+    # additional-ports: 2004
+    ssl: 
+        # client-auth: need
+        enabled: false
+    error:
+        include-message: always
+        include-binding-errors: always
+        include-exception: true
+
+logging:
+    config: classpath:log4j2.xml
+
+# Database Config
+spring:
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: ${DbUrl}${DbName}${DbParams}
+        username: ${DBusername}
+        password: ${DBpassword}
+    jpa:
+        database: mysql
+        defer-datasource-initialization: true
+        properties:
+            hibernate:
+                '[enable_lazy_load_no_trans]': true
+    # sql:
+        # init:
+            # mode: always
+            # continue-on-error: true
+
+clothes-marketplace:
+    env: ${DeploymentEnv}
+    thread-pool-size: 20
