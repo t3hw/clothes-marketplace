@@ -1,4 +1,4 @@
-## PS Api #
+## Clothes Marketplace #
 
 ### How do I get set up?
 #

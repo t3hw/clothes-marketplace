@@ -26,13 +26,11 @@
     </properties>
 
 	<dependencies>
-
         <dependency>
             <groupId>com.ravid.clothes_marketplace</groupId>
             <artifactId>clothes_marketplace_server_swaggers</artifactId>
             <version>1.0.0</version>
         </dependency>
-        
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
@@ -155,6 +153,12 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.5.13</version>
+        </dependency>
+        <dependency>
+            <groupId>com.growingio.android</groupId>
+            <artifactId>okhttp3</artifactId>
+            <version>3.4.4</version>
+            <type>aar</type>
         </dependency>
     </dependencies>
 

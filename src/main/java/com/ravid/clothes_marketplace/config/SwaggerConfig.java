@@ -18,7 +18,7 @@ public class SwaggerConfig
         OpenAPI oApi = new OpenAPI()
                 .components(new Components())
                 .info(new Info()
-                        .title("PS Api")
+                        .title("Clothes Marketplace")
                         .version("1")
                         .contact(new Contact()
                                 .name("Ravid Gontov")

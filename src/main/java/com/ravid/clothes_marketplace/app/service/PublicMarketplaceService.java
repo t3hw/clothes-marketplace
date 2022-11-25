@@ -1,29 +1,30 @@
 package com.ravid.clothes_marketplace.app.service;
 
-import com.ravid.clothes_marketplace.server.api.PublicMarketplaceApi;
+import com.ravid.clothes_marketplace.server.api.PublicMarketplaceApiDelegate;
 import com.ravid.clothes_marketplace.server.model.AuthenticationRequestDTO;
 import com.ravid.clothes_marketplace.server.model.AuthenticationResponseDTO;
-import javax.validation.Valid;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
+import com.ravid.clothes_marketplace.server.model.PublisherDTO;
 
-public class PublicMarketplaceService implements PublicMarketplaceApi {
-    @Value("${DbUrl}")
-    String test;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+@Service
+public class PublicMarketplaceService implements PublicMarketplaceApiDelegate {
 
     @Override
     public ResponseEntity<AuthenticationResponseDTO> authenticateUser(
-            @Valid AuthenticationRequestDTO authenticationRequestDTO) {
+            AuthenticationRequestDTO authenticationRequestDTO) {
         // TODO Auto-generated method stub
-        return PublicMarketplaceApi.super.authenticateUser(authenticationRequestDTO);
+        System.out.println("hello");
+        return ResponseEntity.ok(null);
     }
 
     @Override
-    public ResponseEntity<AuthenticationResponseDTO> getClothes(@Valid String sellerName, @Valid String sellerId,
-            @Valid String garmentType, @Valid Float minPrice, @Valid Float maxPrice, @Valid String size) {
+    public ResponseEntity<PublisherDTO> getClothes(String sellerName, String sellerId, String garmentType,
+            Float minPrice, Float maxPrice, String size) {
         // TODO Auto-generated method stub
-        return PublicMarketplaceApi.super.getClothes(sellerName, sellerId, garmentType, minPrice, maxPrice, size);
+        System.out.println("hello");
+        return ResponseEntity.ok(new PublisherDTO());
     }
-
 
 }
