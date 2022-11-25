@@ -33,5 +33,4 @@ build/
 # src/main/java/com/ravid/clothes_marketplace/tests/*
 
 # *.jar
-ssh-key.sh
 log/*.log

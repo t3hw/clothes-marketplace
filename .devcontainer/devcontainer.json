@@ -14,9 +14,10 @@
 			"INSTALL_GRADLE": "false"
 		}
 	},	
-
+    
+    "runArgs": ["--add-host=host.docker.internal:host-gateway"],
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [8084],
+	// "forwardPorts": [2000],
     
 
 	// Configure tool-specific properties.

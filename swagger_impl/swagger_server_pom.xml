@@ -31,8 +31,8 @@
         <swagger-codegen-maven-plugin-version>3.0.33</swagger-codegen-maven-plugin-version>
         <openapi-generator-version>5.4.0</openapi-generator-version>
 
-        <yaml-location-server>/src/main/resources/Incoming/clothes_server/ClothesServer.yml</yaml-location-server>
-        <!-- <yaml-location-client>/src/main/resources/Outgoing/clothes_server/ClothesServer.yml</yaml-location-client> -->
+        <yaml-location-server>/src/main/resources/Incoming/clothes_server/ClothesServer.yaml</yaml-location-server>
+        <!-- <yaml-location-client>/src/main/resources/Outgoing/clothes_server/ClothesServer.yaml</yaml-location-client> -->
 
     </properties>
 	

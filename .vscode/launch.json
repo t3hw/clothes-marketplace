@@ -6,7 +6,7 @@
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
-            "mainClass": "com.ravid.clothes_marketplace.app.Application",
+            "mainClass": "com.ravid.clothes_marketplace.Application",
             "projectName": "clothes_marketplace",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
