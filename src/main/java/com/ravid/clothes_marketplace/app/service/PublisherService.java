@@ -12,21 +12,21 @@ import org.springframework.stereotype.Service;
 public class PublisherService implements PublisherServiceApiDelegate {
 
     @Override
-    public ResponseEntity<Void> deleteGarment(String authorization, BigDecimal id) {
+    public ResponseEntity<Void> deleteGarment(BigDecimal id) {
         // TODO Auto-generated method stub
         System.out.println("hello");
         return ResponseEntity.noContent().build();
     }
 
     @Override
-    public ResponseEntity<Void> publishNewGarment(String authorization, @Valid GarmentRequestDTO garmentRequestDTO) {
+    public ResponseEntity<Void> publishNewGarment(@Valid GarmentRequestDTO garmentRequestDTO) {
         // TODO Auto-generated method stub
         System.out.println("hello");
         return ResponseEntity.noContent().build();
     }
 
     @Override
-    public ResponseEntity<Void> updateGarment(String authorization, BigDecimal id,
+    public ResponseEntity<Void> updateGarment(BigDecimal id,
             @Valid GarmentRequestDTO garmentRequestDTO) {
         // TODO Auto-generated method stub
         System.out.println("hello");
