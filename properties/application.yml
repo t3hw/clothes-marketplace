@@ -37,6 +37,8 @@ spring:
     url: ${DbUrl}${DbName}${DbParams}
     username: ${DBusername}
     password: ${DBpassword}
+    hikari:
+      max-lifetime: 300000 
   jpa:
     database: mysql
     defer-datasource-initialization: true
