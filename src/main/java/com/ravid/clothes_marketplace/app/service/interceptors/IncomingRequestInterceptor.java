@@ -1,4 +1,4 @@
-package com.ravid.clothes_marketplace.app.security;
+package com.ravid.clothes_marketplace.app.service.interceptors;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,9 +13,9 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ravid.clothes_marketplace.app.MarketplaceProperties;
+import com.ravid.clothes_marketplace.app.properties.MarketplaceProperties;
 
-public class BearerTokenAuthInterceptor implements HandlerInterceptor, ApplicationContextAware {
+public class IncomingRequestInterceptor implements HandlerInterceptor, ApplicationContextAware {
 
     private static MarketplaceProperties props;
     private static ApplicationContext context;
@@ -30,13 +30,16 @@ public class BearerTokenAuthInterceptor implements HandlerInterceptor, Applicati
         for (String uri : authURIs) {
             authorizationRequestFilter = authorizationRequestFilter.or(requestUri -> requestUri.startsWith(uri));
         }
-        
-        // Only validate jwt of request URIs matching the filter. Unauthorized exception will be thrown if JWT is missing, invalid, or the user is unauthorized
-        Optional.of(request.getRequestURI()).filter(authorizationRequestFilter).ifPresent((requestURI) -> {
-            String jwt = request.getHeader("Authorization");
-            context.getBean(ScopeJWTToken.class, Optional.ofNullable(jwt)).verifyToken();
-        });
 
+        RequestScopeData RequestData = context.getBean(RequestScopeData.class,request.getMethod());
+
+        // Only validate jwt of request URIs matching the filter. Unauthorized exception will be thrown if JWT is missing, invalid, or the user is unauthorized
+        String jwt = null;
+        if (Optional.of(request.getRequestURI()).filter(authorizationRequestFilter).isPresent()) {
+            jwt = request.getHeader("Authorization");
+            RequestData.verifyToken(Optional.ofNullable(jwt));
+        }
+            
         return true;
     }
 

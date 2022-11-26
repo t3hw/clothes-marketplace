@@ -1,30 +1,32 @@
 package com.ravid.clothes_marketplace.app.service;
 
+import com.ravid.clothes_marketplace.app.logic.requesthandlers.RequestHandler;
+import com.ravid.clothes_marketplace.app.service.interceptors.RequestScopeData;
 import com.ravid.clothes_marketplace.server.api.PublicMarketplaceApiDelegate;
-import com.ravid.clothes_marketplace.server.model.AuthenticationRequestDTO;
-import com.ravid.clothes_marketplace.server.model.AuthenticationResponseDTO;
 import com.ravid.clothes_marketplace.server.model.ClothesResponseDTO;
 
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PublicMarketplaceService implements PublicMarketplaceApiDelegate {
+public class PublicMarketplaceService implements PublicMarketplaceApiDelegate, ApplicationContextAware {
+    private ApplicationContext context;
 
     @Override
-    public ResponseEntity<AuthenticationResponseDTO> authenticateUser(
-            AuthenticationRequestDTO authenticationRequestDTO) {
-        // TODO Auto-generated method stub
-        System.out.println("hello");
-        return ResponseEntity.ok(null);
+    public ResponseEntity<ClothesResponseDTO> getClothes(String sellerName, String sellerId
+                                                        ,String garmentType, Float minPrice
+                                                        ,Float maxPrice, String size) {
+        Object[] args = {sellerName,sellerId,garmentType,minPrice,maxPrice,size};
+        String httpMethod = context.getBean(RequestScopeData.class).getHttpMethod();
+        return ((RequestHandler) context.getBean("query"+httpMethod ,args)).handleRequest();
     }
 
     @Override
-    public ResponseEntity<ClothesResponseDTO> getClothes(String sellerName, String sellerId, String garmentType,
-            Float minPrice, Float maxPrice, String size) {
-        // TODO Auto-generated method stub
-        System.out.println("hello");
-        return ResponseEntity.ok(new ClothesResponseDTO());
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.context = applicationContext;
     }
 
 }

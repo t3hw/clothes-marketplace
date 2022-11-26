@@ -1,4 +1,4 @@
-package com.ravid.clothes_marketplace.app;
+package com.ravid.clothes_marketplace.app.properties;
 
 import java.util.List;
 

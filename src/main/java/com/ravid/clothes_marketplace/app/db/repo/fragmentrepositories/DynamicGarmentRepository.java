@@ -10,6 +10,6 @@ public interface DynamicGarmentRepository {
                                                    ,Optional<String> publisherId
                                                    ,Optional<String> type
                                                    ,Optional<String> size
-                                                   ,Optional<Float> minPrice 
+                                                   ,Optional<Float> minPrice
                                                    ,Optional<Float> maxPrice);
 }
