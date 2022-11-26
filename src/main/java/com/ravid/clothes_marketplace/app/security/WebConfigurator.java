@@ -1,4 +1,4 @@
-package com.ravid.clothes_marketplace.app.service.security;
+package com.ravid.clothes_marketplace.app.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,8 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @EnableWebMvc
 @Configuration
-public class webConfigurator implements WebMvcConfigurer {
-
+public class WebConfigurator implements WebMvcConfigurer {
     @Bean
     public BearerTokenAuthInterceptor bearerTokenAuthInterceptor() {
         return new BearerTokenAuthInterceptor();

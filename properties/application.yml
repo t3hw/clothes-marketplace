@@ -1,3 +1,10 @@
+# Custom Settings for our application
+clothes-marketplace:
+  env: ${DeploymentEnv}
+  thread-pool-size: 20
+  authorization-required-uris:
+    - /Publisher-Service
+
 springdoc:
   packagesTo-scan: 
     - com.ravid.clothes_marketplace.server
@@ -36,11 +43,7 @@ spring:
     properties:
       hibernate:
         "[enable_lazy_load_no_trans]": true
-  # sql:
-  #   init:
-  #     mode: always
-  #   continue-on-error: true
-
-clothes-marketplace:
-  env: ${DeploymentEnv}
-  thread-pool-size: 20
+  sql:
+    init:
+      mode: always
+    # continue-on-error: true

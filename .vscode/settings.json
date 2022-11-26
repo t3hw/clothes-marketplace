@@ -5,5 +5,9 @@
     "editor.detectIndentation": false,
     "java.import.gradle.wrapper.enabled": false,
     "java.import.gradle.enabled": false,
-    "gradle.autoDetect": "off"
+    "java.test.config": {
+        "name": "marketplaceTesting",
+        "workingDirectory": "${workspaceFolder}",
+        "envFile": "${workspaceFolder}/.env"
+    }
 }

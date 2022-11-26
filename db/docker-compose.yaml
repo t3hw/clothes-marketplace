@@ -1,7 +1,7 @@
 version: '3.3'
 services:
-  db:
-    build: ./db
+  dev_db:
+    build: .
     restart: always
     environment:
       MYSQL_DATABASE: 'db'
@@ -13,6 +13,6 @@ services:
     expose:
       - '3306'
     volumes:
-      - my-db:/var/lib/mysql
+      - dev-db:/var/lib/mysql
 volumes:
-  my-db:
+  dev-db:
