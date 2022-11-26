@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,7 +19,6 @@ public class BearerTokenAuthInterceptor implements HandlerInterceptor, Applicati
 
     private static MarketplaceProperties props;
     private static ApplicationContext context;
-    private static BCryptPasswordEncoder bCrypt = new BCryptPasswordEncoder();
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) 

@@ -1,4 +1,4 @@
-package com.ravid.clothes_marketplace.app.model;
+package com.ravid.clothes_marketplace.app.db.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

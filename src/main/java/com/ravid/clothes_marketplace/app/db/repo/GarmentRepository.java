@@ -1,12 +1,16 @@
-package com.ravid.clothes_marketplace.app.model;
+package com.ravid.clothes_marketplace.app.db.repo;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.ravid.clothes_marketplace.app.db.model.Garment;
+import com.ravid.clothes_marketplace.app.db.model.Publisher;
+import com.ravid.clothes_marketplace.app.db.repo.fragmentrepositories.DynamicGarmentRepository;
+
 @Repository
-public interface GarmentRepository extends JpaRepository<Garment, Integer>{
+public interface GarmentRepository extends DynamicGarmentRepository, JpaRepository<Garment, Integer>{
     public List<Garment> findAllByPublisher(Publisher publisher);
     public List<Garment> findAllBySize(String size);
     
