@@ -1,5 +1,7 @@
 package com.ravid.clothes_marketplace.app.db.model;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -50,7 +52,7 @@ import lombok.ToString;
 public class Garment {
     @Id
     @Column(name="id",nullable = false, updatable = false,insertable= false)
-    Integer id;
+    BigDecimal id;
 
     @Column(name = "garment_type",nullable = false, insertable = true, updatable = true, length = 10)
     String garmentType;
