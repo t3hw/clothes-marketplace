@@ -1,25 +1,8 @@
 version: '3.3'
 services:
-  db:
-    build: ./db
-    restart: always
-    environment:
-      MYSQL_DATABASE: 'db'
-      MYSQL_USER: 'admin'
-      MYSQL_PASSWORD: 'admin123'
-      MYSQL_ROOT_PASSWORD: 'password'
-    ports:
-      - '3306:3306'
-    expose:
-      - '3306'
-    volumes:
-      - my-db:/var/lib/mysql
-    healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
-      timeout: 20s
-      retries: 10
   service:
-    build: .
+    build: ../../..
+    image: ravidgontov/marketplace-service:latest
     restart: always
     ports:
       - '2000:2000'
@@ -37,5 +20,24 @@ services:
     depends_on:
       db:
         condition: service_healthy
+  db:
+    build: ../../../db
+    image: ravidgontov/marketplace-db:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: 'admin'
+      MYSQL_PASSWORD: 'admin123'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - my-db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
 volumes:
   my-db:

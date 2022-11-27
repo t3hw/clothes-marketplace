@@ -10,15 +10,20 @@
 #### If for some reason the script hasnt installed the swagger to the local repository, ron `"/workspaces/clothes-marketplace-swagger/mvnw" install -f "/workspaces/clothes-marketplace-swagger/pom.xml"`
 #
 ### To install the Swagger jar on the local maven repository *(outside of vscode dev container)*
-#### get the repository `git@github.com:t3hw/clothes-marketplace-swagger.git`
+#### get the repository `git clone git@github.com:t3hw/clothes-marketplace-swagger.git`
 #### run `./mvnw install` in the project root folder
 #### In maven, run clean, and compile
 #
 
 
 ### Running the image locally
-#### Remove commented env variables from Dockerfile
-#### run `docker-compose up`
+#### docker compose
+#### *paths are relative to project root*
+#### Local dev db image build and run: `docker-compose -f ./scripts/docker-compose/marketplace-db/docker-compose.yaml up -d`
+#### Local docker image build and run: `docker-compose -f ./scripts/docker-compose/marketplace-dev/docker-compose.yaml up -d`
+#### Push images to Docker Hub:        `docker-compose -f ./scripts/docker-compose/marketplace-dev/docker-compose.yaml push`
+#### Prod like environment:            `docker-compose -f ./scripts/docker-compose/marketplace-prod/docker-compose.yaml up -d`
+
 
 #### swagger page:
 

@@ -1,7 +1,8 @@
 version: '3.3'
 services:
   dev_db:
-    build: .
+    build: ../../../../db
+    image: ravidgontov/marketplace_dev_db
     restart: always
     environment:
       MYSQL_DATABASE: 'db'
