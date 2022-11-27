@@ -14,5 +14,28 @@ services:
       - '3306'
     volumes:
       - my-db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+  service:
+    build: .
+    restart: always
+    ports:
+      - '2000:2000'
+    expose:
+      - '2000'
+    environment:
+      DbUrl: "jdbc:mysql://host.docker.internal:3306/"
+      DbParams: "?serverTimezone=UTC&useLegacyDatetimeCode=FALSE&useSSL=FALSE&allowPublicKeyRetrieval=TRUE"
+      DbName: "db"
+      DBusername: "admin"
+      DBpassword: "admin123"
+      LOGGER_APPENDER: "Text"
+      SPRING_CONFIG_NAME: "application"
+      SPRING_CONFIG_LOCATION: "/lib/properties/"
+    depends_on:
+      db:
+        condition: service_healthy
 volumes:
   my-db:
