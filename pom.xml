@@ -18,7 +18,7 @@
         <lombok.version>1.18.22</lombok.version>
         <spring-boot-starter-version>2.7.0</spring-boot-starter-version>
         <springdoc-version>1.6.7</springdoc-version>
-        <jackson-databind-nullable-version>0.2.2</jackson-databind-nullable-version>
+        <jackson-databind-nullable-version>0.2.4</jackson-databind-nullable-version>
         <junit-version>4.8.1</junit-version>
         <jackson-version>2.13.2.2</jackson-version>
         <jackson-sub-version>2.13.0</jackson-sub-version>
@@ -163,6 +163,11 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.5.13</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+            <version>${jackson-databind-nullable-version}</version>
         </dependency>
     </dependencies>
 

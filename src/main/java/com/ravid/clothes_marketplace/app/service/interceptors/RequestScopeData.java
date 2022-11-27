@@ -24,6 +24,6 @@ public class RequestScopeData {
 
     // public void getTokenData(Optional<String> bearerToken) throws HttpClientErrorException {
     //     bearerToken.filter(jwt -> jwt.matches("^Bearer ([a-zA-Z0-9_=]+)\\.([a-zA-Z0-9_=]+)\\.([a-zA-Z0-9_\\-\\+\\/=]*)"))
-    //         .orElseThrow(() -> new HttpClientErrorException(HttpStatus.UNAUTHORIZED, "JWT Missing or in an invalid format"));
+    //         .orElseThrow(() -> new UserException((HttpStatus.UNAUTHORIZED, "JWT Missing or in an invalid format"));
     // }
 }

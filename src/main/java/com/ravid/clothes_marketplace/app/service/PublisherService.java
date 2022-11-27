@@ -24,27 +24,22 @@ public class PublisherService implements PublisherApiDelegate, ApplicationContex
     @Override
     public ResponseEntity<Void> deleteGarment(BigDecimal id) {
         RequestScopeData data = context.getBean(RequestScopeData.class);
-        return handleRequest(id, data);
+        return ((RequestHandler) context.getBean("publisher"+data.getHttpMethod(), id, data.getUserId())).handleRequest();
     }
 
     @Override
     public ResponseEntity<GarmentResponseDTO> publishNewGarment(@Valid GarmentRequestDTO garmentRequestDTO) {
         RequestScopeData data = context.getBean(RequestScopeData.class);
-        return handleRequest(garmentRequestDTO, data);
+        return ((RequestHandler) context.getBean("publisher"+data.getHttpMethod(), garmentRequestDTO, data.getUserId())).handleRequest();
     }
 
     @Override
     public ResponseEntity<Void> updateGarment(BigDecimal id,
             @Valid GarmentRequestDTO garmentRequestDTO) {
         RequestScopeData data = context.getBean(RequestScopeData.class);
-        return handleRequest(id, data);
+        return ((RequestHandler) context.getBean("publisher"+data.getHttpMethod(), id, garmentRequestDTO, data.getUserId())).handleRequest();
     }
     
-    private <T> ResponseEntity<T> handleRequest(Object arg, RequestScopeData data) {
-        Object[] args = {arg,data.getUserId()};
-        return ((RequestHandler) context.getBean("publisher"+data.getHttpMethod() ,args)).handleRequest();
-    }
-
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.context = applicationContext;

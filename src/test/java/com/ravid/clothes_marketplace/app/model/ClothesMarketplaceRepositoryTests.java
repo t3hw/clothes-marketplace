@@ -2,6 +2,7 @@ package com.ravid.clothes_marketplace.app.model;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,7 +60,7 @@ class ClothesMarketplaceRepositoryTests {
     void testGarmentsRepo() {
         Publisher pub = pubRepo.getReferenceById("123456789");
 
-        Garment garm = garmentRepo.getReferenceById(1);
+        Garment garm = garmentRepo.getReferenceById(BigDecimal.ONE);
         assertTrue(garm.getDescription().equals("A normal pair of pants"));
         assertTrue(garm.getGarmentType().equals("Pants"));
         assertTrue(garm.getPrice().equals(Float.parseFloat("127.0")));

@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -49,12 +51,29 @@ import lombok.ToString;
     where g.price < ?1
 """
 )
+@NamedQuery(
+        name  = "Garment.deleteGarmByGarmId",
+        query = "delete from Garment where id = ?1"
+)
+@NamedQuery(
+        name  = "Garment.updateGarmByGarmId",
+        query = """
+    update Garment 
+    set garmentType = ?2,
+        size = ?3,
+        description = ?4,
+        price = ?5
+    where id = ?1
+"""
+)
 public class Garment {
     @Id
-    @Column(name="id",nullable = false, updatable = false,insertable= false)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="id", nullable = false, updatable = false, insertable= false)
     BigDecimal id;
 
     @Column(name = "garment_type",nullable = false, insertable = true, updatable = true, length = 10)
+    @NonNull
     String garmentType;
 
     @ManyToOne

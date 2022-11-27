@@ -19,9 +19,8 @@ public class AuthenticationService implements AuthenticateApiDelegate, Applicati
     @Override
     public ResponseEntity<AuthenticationResponseDTO> authenticateUser(
             AuthenticationRequestDTO authenticationRequestDTO) {
-        Object[] args = {authenticationRequestDTO};
         String httpMethod = context.getBean(RequestScopeData.class).getHttpMethod();
-        return ((RequestHandler) context.getBean("authentication"+httpMethod ,args)).handleRequest();
+        return ((RequestHandler) context.getBean("authentication"+httpMethod, authenticationRequestDTO)).handleRequest();
     }
 
     @Override

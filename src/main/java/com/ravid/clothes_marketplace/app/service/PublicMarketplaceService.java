@@ -19,9 +19,8 @@ public class PublicMarketplaceService implements MarketplaceApiDelegate, Applica
     public ResponseEntity<ClothesResponseDTO> getClothes(String sellerName, String sellerId
                                                         ,String garmentType, Float minPrice
                                                         ,Float maxPrice, String size) {
-        Object[] args = {sellerName,sellerId,garmentType,minPrice,maxPrice,size};
         String httpMethod = context.getBean(RequestScopeData.class).getHttpMethod();
-        return ((RequestHandler) context.getBean("query"+httpMethod ,args)).handleRequest();
+        return ((RequestHandler) context.getBean("query"+httpMethod ,sellerName,sellerId,garmentType,minPrice,maxPrice,size)).handleRequest();
     }
 
     @Override

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.ravid.clothes_marketplace.app.errors.UserException;
 import com.ravid.clothes_marketplace.app.logic.requesthandlers.RequestHandler;
 import com.ravid.clothes_marketplace.app.security.JwtUtil;
 import com.ravid.clothes_marketplace.app.security.JwtUserDetailsService;
@@ -57,7 +58,7 @@ public class AuthenticationPOST extends RequestHandler {
         //     System.out.println("TODO THIS");
             
         // } else {
-        //     throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED, "Username and password do not match.");
+        //     throw new UserException((HttpStatus.UNAUTHORIZED, "Username and password do not match.");
         // }
     }
 
@@ -65,9 +66,9 @@ public class AuthenticationPOST extends RequestHandler {
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 		} catch (DisabledException e) {
-			throw new HttpClientErrorException( HttpStatus.UNAUTHORIZED, "USER_DISABLED " + e.getMessage());
+			throw new UserException("USER_DISABLED " + e.getMessage(), new HttpClientErrorException(HttpStatus.UNAUTHORIZED));
 		} catch (BadCredentialsException e) {
-			throw new HttpClientErrorException( HttpStatus.UNAUTHORIZED, "INVALID_CREDENTIALS " + e.getMessage());
+			throw new UserException("INVALID_CREDENTIALS " + e.getMessage(), new HttpClientErrorException(HttpStatus.UNAUTHORIZED));
 		}
 	}
 

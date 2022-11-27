@@ -19,6 +19,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.ravid.clothes_marketplace.app.errors.UserException;
 import com.ravid.clothes_marketplace.app.properties.MarketplaceProperties;
 
 @Component
@@ -45,10 +46,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 try {
                     token = jwtUtil.decodeToken(requestTokenHeader.substring(7));
                 } catch (IllegalArgumentException e) {
-                    throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED, "Unable to get JWT Token");
+                    throw new UserException("Unable to get JWT Token", new HttpClientErrorException(HttpStatus.UNAUTHORIZED));
                 }
             } else {
-                throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED, "JWT Token does not begin with Bearer String");
+                throw new UserException("JWT Token does not begin with Bearer String", new HttpClientErrorException(HttpStatus.UNAUTHORIZED));
             }
 
             // Once we get the token validate it.
@@ -69,10 +70,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                     // Spring Security Configurations successfully.
                     SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
                 } else {
-                    throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED, "Jwt Token Invalid");
+                    throw new UserException("Jwt Token Invalid", new HttpClientErrorException(HttpStatus.UNAUTHORIZED));
                 }
             } else if (token != null && token.getSubject() == null) {
-                throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED, "Error getting username from token");
+                throw new UserException("Error getting username from token", new HttpClientErrorException(HttpStatus.UNAUTHORIZED));
             }
         }
 		chain.doFilter(request, response);
