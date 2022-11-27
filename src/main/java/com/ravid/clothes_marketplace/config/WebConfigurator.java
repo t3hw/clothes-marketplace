@@ -1,4 +1,4 @@
-package com.ravid.clothes_marketplace.app.security;
+package com.ravid.clothes_marketplace.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

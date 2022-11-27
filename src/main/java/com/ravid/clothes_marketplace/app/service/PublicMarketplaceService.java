@@ -2,7 +2,7 @@ package com.ravid.clothes_marketplace.app.service;
 
 import com.ravid.clothes_marketplace.app.logic.requesthandlers.RequestHandler;
 import com.ravid.clothes_marketplace.app.service.interceptors.RequestScopeData;
-import com.ravid.clothes_marketplace.server.api.PublicMarketplaceApiDelegate;
+import com.ravid.clothes_marketplace.server.api.MarketplaceApiDelegate;
 import com.ravid.clothes_marketplace.server.model.ClothesResponseDTO;
 
 import org.springframework.beans.BeansException;
@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PublicMarketplaceService implements PublicMarketplaceApiDelegate, ApplicationContextAware {
+public class PublicMarketplaceService implements MarketplaceApiDelegate, ApplicationContextAware {
     private ApplicationContext context;
 
     @Override

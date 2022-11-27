@@ -1,43 +1,42 @@
 package com.ravid.clothes_marketplace.app.service.interceptors;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ravid.clothes_marketplace.app.properties.MarketplaceProperties;
+import com.ravid.clothes_marketplace.app.security.JwtUtil;
 
 public class IncomingRequestInterceptor implements HandlerInterceptor, ApplicationContextAware {
 
-    private static MarketplaceProperties props;
-    private static ApplicationContext context;
+
+    @Autowired 
+    private JwtUtil jwtUtil;
+
+    @Autowired
+    private MarketplaceProperties props;
+    private ApplicationContext context;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) 
       throws Exception {
-        List<String> authURIs = props.getAuthorizationRequiredUris();
-        Predicate<String> authorizationRequestFilter = (x) -> false;
-
-        // Building a filter for the request URI
-        for (String uri : authURIs) {
-            authorizationRequestFilter = authorizationRequestFilter.or(requestUri -> requestUri.startsWith(uri));
-        }
-
-        RequestScopeData RequestData = context.getBean(RequestScopeData.class,request.getMethod());
+        
+        RequestScopeData requestData = context.getBean(RequestScopeData.class,request.getMethod());
 
         // Only validate jwt of request URIs matching the filter. Unauthorized exception will be thrown if JWT is missing, invalid, or the user is unauthorized
         String jwt = null;
-        if (Optional.of(request.getRequestURI()).filter(authorizationRequestFilter).isPresent()) {
-            jwt = request.getHeader("Authorization");
-            RequestData.verifyToken(Optional.ofNullable(jwt));
+        if (Optional.of(request.getRequestURI()).filter(props.getAuthRequestFilter()).isPresent()) {
+            jwt = request.getHeader("Authorization").substring(7);
+            var userId = jwtUtil.decodeToken(jwt).getSubject();
+            requestData.setUserId(userId);
         }
             
         return true;
@@ -55,13 +54,7 @@ public class IncomingRequestInterceptor implements HandlerInterceptor, Applicati
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        setContext(applicationContext);
+        this.context = applicationContext;
     }
-
-    private static void setContext(ApplicationContext applicationContext) {
-        if (context == null) {
-            context = applicationContext;
-            props = context.getBean(MarketplaceProperties.class);
-        }
-    }
+    
 }

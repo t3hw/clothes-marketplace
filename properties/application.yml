@@ -3,8 +3,11 @@ clothes-marketplace:
   env: ${DeploymentEnv}
   thread-pool-size: 20
   authorization-required-uris:
-    - /Publisher-Service
-
+    - /publisher
+  authorization-allowed-uris:
+    - /authenticate
+    - /marketplace
+    - /health
 springdoc:
   packagesTo-scan: 
     - com.ravid.clothes_marketplace.server
@@ -29,7 +32,8 @@ server:
 
 logging:
   config: classpath:log4j2.xml
-
+jwt:
+  secret: "c3VwZXItc2VjcmV0LXN0cmluZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dn"
 # Database Config
 spring:
   datasource:

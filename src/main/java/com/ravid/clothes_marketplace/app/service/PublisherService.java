@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
 
 import com.ravid.clothes_marketplace.app.logic.requesthandlers.RequestHandler;
 import com.ravid.clothes_marketplace.app.service.interceptors.RequestScopeData;
-import com.ravid.clothes_marketplace.server.api.PublisherServiceApiDelegate;
+import com.ravid.clothes_marketplace.server.api.PublisherApiDelegate;
 import com.ravid.clothes_marketplace.server.model.GarmentRequestDTO;
 import com.ravid.clothes_marketplace.server.model.GarmentResponseDTO;
 
 @Service
-public class PublisherService implements PublisherServiceApiDelegate, ApplicationContextAware {
+public class PublisherService implements PublisherApiDelegate, ApplicationContextAware {
 
     private ApplicationContext context;
 
