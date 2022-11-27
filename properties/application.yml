@@ -8,6 +8,8 @@ clothes-marketplace:
     - /authenticate
     - /marketplace/**
     - /health
+    - /swagger-ui/**
+    - /v3/api-docs/**
 springdoc:
   packagesTo-scan: 
     - com.ravid.clothes_marketplace.server
