@@ -6,7 +6,7 @@ clothes-marketplace:
     - /publisher
   authorization-allowed-uris:
     - /authenticate
-    - /marketplace
+    - /marketplace/**
     - /health
 springdoc:
   packagesTo-scan: 
