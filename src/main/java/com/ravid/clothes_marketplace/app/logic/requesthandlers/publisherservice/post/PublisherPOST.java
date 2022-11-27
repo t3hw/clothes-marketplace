@@ -8,16 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.ravid.clothes_marketplace.app.db.model.Garment;
 import com.ravid.clothes_marketplace.app.db.repo.GarmentRepository;
 import com.ravid.clothes_marketplace.app.db.repo.PublisherRepository;
+import com.ravid.clothes_marketplace.app.errors.UserException;
 import com.ravid.clothes_marketplace.app.logic.requesthandlers.RequestHandler;
 import com.ravid.clothes_marketplace.server.model.GarmentRequestDTO;
 import com.ravid.clothes_marketplace.server.model.GarmentResponseDTO;
+
 
 @Component
 @Scope(value = WebApplicationContext.SCOPE_REQUEST,proxyMode = ScopedProxyMode.DEFAULT)
@@ -33,6 +37,15 @@ public class PublisherPOST extends RequestHandler {
     @SuppressWarnings("unchecked")
     @Transactional
     public <T> ResponseEntity<T> handleRequest(){
+
+        // Check request validity
+        if (req.getGarmentType() == null)
+            throw new UserException("MISSING MANDATORY PARAM OR UNDEFINED ENUM VALUE: garmentType", new HttpClientErrorException(HttpStatus.BAD_REQUEST));
+        if (req.getGarmentSize() == null)
+            throw new UserException("MISSING MANDATORY PARAM OR UNDEFINED ENUM VALUE: garmentSize", new HttpClientErrorException(HttpStatus.BAD_REQUEST));
+        if (req.getGarmentSize() == null)
+            throw new UserException("MISSING MANDATORY PARAM: price", new HttpClientErrorException(HttpStatus.BAD_REQUEST));
+
         // Populate garment properties and save to repository
         Garment garment = new Garment(req.getGarmentType().getValue(), req.getGarmentSize().getValue(), req.getPrice());
         Optional.ofNullable(req.getGarmentDescription()).ifPresent(desc ->

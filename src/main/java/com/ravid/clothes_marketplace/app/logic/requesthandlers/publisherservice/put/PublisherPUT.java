@@ -32,6 +32,9 @@ public class PublisherPUT extends RequestHandler {
     @Autowired private PublisherRepository pubRepo;
     @Autowired private GarmentRepository garmentRepo;
 
+    /* 
+     * Request handler for update garment endpoint
+     */
     @Override
     @SuppressWarnings("unchecked")
     @Transactional
@@ -40,9 +43,22 @@ public class PublisherPUT extends RequestHandler {
         Garment garment = pubRepo.getReferenceById(publisherId).getGarments().stream().filter(garm -> garm.getId().equals(garmentId)).findFirst()
             .orElseThrow(() -> new UserException("Garment not found", new HttpClientErrorException(HttpStatus.NOT_FOUND)));
         
-        garmentRepo.updateGarmByGarmId(garment.getId(), req.getGarmentType().getValue(),
-                                       req.getGarmentSize().getValue(), req.getGarmentDescription(),
-                                       req.getPrice());
+        
+        // Set nullable params
+        String type = null;
+        if (req.getGarmentType() != null)
+            type = req.getGarmentType().getValue();
+        String size = null;
+        if (req.getGarmentSize() != null)
+            type = req.getGarmentSize().getValue();
+        Float price = null;
+        if (req.getGarmentSize() != null)
+            price = req.getPrice();
+
+        // Update Repository
+        garmentRepo.updateGarmByGarmId(garment.getId(), type,
+                                       size, req.getGarmentDescription(),
+                                       price);
         
         return (ResponseEntity<T>) ResponseEntity.noContent().build();
     }

@@ -1,6 +1,7 @@
 package com.ravid.clothes_marketplace.app.errors;
 
 import java.math.BigDecimal;
+import java.util.NoSuchElementException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,7 +45,13 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler{
             return ResponseEntity.internalServerError().body(new ErrorResponseDTO().error("UNEXPECTED ERROR OCCURED").exception(exception.getMessage()).status(BigDecimal.valueOf(500)));
         }
     }
-    
+
+    @ExceptionHandler(NoSuchElementException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ErrorResponseDTO> handleNoSuchElementException(NoSuchElementException ex, WebRequest request) {
+        return ResponseEntity.badRequest().body(new ErrorResponseDTO().error("BAD REQUEST")
+                                .exception(ex.getMessage()).status(BigDecimal.valueOf(400)));
+    }
 
     protected ResponseEntity<ErrorResponseDTO> manageUserException(UserException ex,
             WebRequest request) {
