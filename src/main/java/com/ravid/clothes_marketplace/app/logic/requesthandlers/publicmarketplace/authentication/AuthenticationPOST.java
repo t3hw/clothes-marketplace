@@ -50,16 +50,6 @@ public class AuthenticationPOST extends RequestHandler {
 		final String token = jwtUtil.generateToken(userDetails);
 
         return (ResponseEntity<T>) ResponseEntity.ok(new AuthenticationResponseDTO().token(token));
-
-        // User user = repo.getReferenceById(req.getUserId());
-        // String password = user.getPassword();
-        // // Get password from repo and match it to the one in the request
-        // if (pwEncoder.matches(req.getPassword(), password)){
-        //     System.out.println("TODO THIS");
-            
-        // } else {
-        //     throw new UserException((HttpStatus.UNAUTHORIZED, "Username and password do not match.");
-        // }
     }
 
 	private void authenticate(String username, String password) throws Exception {

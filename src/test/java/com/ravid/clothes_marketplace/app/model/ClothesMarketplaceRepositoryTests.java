@@ -40,7 +40,7 @@ class ClothesMarketplaceRepositoryTests {
     void testUserRepository() {
         User user = userRepo.getReferenceById("123456789");
         assertTrue(user.getPublisher().getFullName().equals("Ravid Gontov"));
-        assertTrue(user.getPassword().equals("$2a$12$SNVIPA4sxpc.n7nmAtK0AuwrFdgtYLe5P4I2Rpev1Vo6j4uIeva1K"));
+        assertTrue(user.getPassword().equals("$2a$10$0utaC1S8xT7Z0kN2vslEg.3MB.3Ki0WGzFqJG6DYj71go23h5gMCi"));
     }
 
     @Test
@@ -48,7 +48,7 @@ class ClothesMarketplaceRepositoryTests {
         Publisher pub = pubRepo.getReferenceById("123456789");
         assertTrue(pub.getFullName().equals("Ravid Gontov"));
         assertTrue(pub.getAddress().equals("Metzulot Yam 16 Givatayim"));
-        assertTrue(pub.getUser().getPassword().equals("$2a$12$SNVIPA4sxpc.n7nmAtK0AuwrFdgtYLe5P4I2Rpev1Vo6j4uIeva1K"));
+        assertTrue(pub.getUser().getPassword().equals("$2a$10$0utaC1S8xT7Z0kN2vslEg.3MB.3Ki0WGzFqJG6DYj71go23h5gMCi"));
         assertTrue(pub.getGarments().size() == 2);
 
         List<Publisher> pubList = pubRepo.findByFullNameContainingIgnoreCase("ravid");
@@ -104,4 +104,5 @@ class ClothesMarketplaceRepositoryTests {
                                                           Optional.of(Float.parseFloat("90000.0")));
         assertTrue(garmList.size() == 1);
     }
+
 }

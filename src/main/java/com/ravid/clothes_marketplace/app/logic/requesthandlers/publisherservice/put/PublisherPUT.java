@@ -19,7 +19,7 @@ import com.ravid.clothes_marketplace.app.db.repo.GarmentRepository;
 import com.ravid.clothes_marketplace.app.db.repo.PublisherRepository;
 import com.ravid.clothes_marketplace.app.errors.UserException;
 import com.ravid.clothes_marketplace.app.logic.requesthandlers.RequestHandler;
-import com.ravid.clothes_marketplace.server.model.GarmentRequestDTO;
+import com.ravid.clothes_marketplace.server.model.GarmentPUTRequestDTO;
 
 @Component
 @Scope(value = WebApplicationContext.SCOPE_REQUEST,proxyMode = ScopedProxyMode.DEFAULT)
@@ -27,7 +27,7 @@ import com.ravid.clothes_marketplace.server.model.GarmentRequestDTO;
 public class PublisherPUT extends RequestHandler {
 
     private BigDecimal garmentId;
-    private GarmentRequestDTO req;
+    private GarmentPUTRequestDTO req;
     private String publisherId;
     @Autowired private PublisherRepository pubRepo;
     @Autowired private GarmentRepository garmentRepo;
@@ -44,27 +44,25 @@ public class PublisherPUT extends RequestHandler {
             .orElseThrow(() -> new UserException("Garment not found", new HttpClientErrorException(HttpStatus.NOT_FOUND)));
         
         
-        // Set nullable params
-        String type = null;
-        if (req.getGarmentType() != null)
-            type = req.getGarmentType().getValue();
-        String size = null;
-        if (req.getGarmentSize() != null)
-            type = req.getGarmentSize().getValue();
-        Float price = null;
-        if (req.getGarmentSize() != null)
-            price = req.getPrice();
+        // Check request validity
+        if (req.getGarmentType() == null)
+            throw new UserException("MISSING MANDATORY PARAM OR UNDEFINED ENUM VALUE: garmentType", new HttpClientErrorException(HttpStatus.BAD_REQUEST));
+        if (req.getGarmentSize() == null)
+            throw new UserException("MISSING MANDATORY PARAM OR UNDEFINED ENUM VALUE: garmentSize", new HttpClientErrorException(HttpStatus.BAD_REQUEST));
+        if (req.getPrice() == null)
+            throw new UserException("MISSING MANDATORY PARAM: price", new HttpClientErrorException(HttpStatus.BAD_REQUEST));
 
-        // Update Repository
-        garmentRepo.updateGarmByGarmId(garment.getId(), type,
-                                       size, req.getGarmentDescription(),
-                                       price);
+        garment.setGarmentType(req.getGarmentType().getValue());
+        garment.setSize(req.getGarmentSize().getValue());
+        garment.setDescription(req.getGarmentDescription());
+        garment.setPrice(req.getPrice());
+        garmentRepo.save(garment);
         
         return (ResponseEntity<T>) ResponseEntity.noContent().build();
     }
 
     // Abstract class initilization
-    public PublisherPUT(BigDecimal garmentId, GarmentRequestDTO req, String publisherId) {
+    public PublisherPUT(BigDecimal garmentId, GarmentPUTRequestDTO req, String publisherId) {
         super(null);
         this.garmentId = garmentId;
         this.req = req;

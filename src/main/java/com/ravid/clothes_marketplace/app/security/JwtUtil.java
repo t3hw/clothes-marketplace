@@ -33,7 +33,7 @@ public class JwtUtil implements Serializable {
     }
 
 	//check if the token has expired
-	private Boolean isTokenExpired(DecodedJWT jwt) {
+	public Boolean isTokenExpired(DecodedJWT jwt) {
 		final Instant expiration = jwt.getExpiresAtAsInstant();
 		return expiration.compareTo(Instant.now()) < 0;
 	}

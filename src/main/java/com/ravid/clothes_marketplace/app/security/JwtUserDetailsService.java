@@ -17,6 +17,7 @@ public class JwtUserDetailsService implements UserDetailsService {
     @Autowired UserRepository repo;
 
 	@Override
+    // Get spring security format user
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Optional<com.ravid.clothes_marketplace.app.db.model.User> user = repo.findById(username);
         if (user.isPresent()) {

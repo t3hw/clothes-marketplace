@@ -29,6 +29,7 @@ public class IncomingRequestInterceptor implements HandlerInterceptor, Applicati
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) 
       throws Exception {
         
+        // Save crucial data to request scope bean for access later down the processing pipeline
         RequestScopeData requestData = context.getBean(RequestScopeData.class,request.getMethod());
 
         // Only validate jwt of request URIs matching the filter. Unauthorized exception will be thrown if JWT is missing, invalid, or the user is unauthorized

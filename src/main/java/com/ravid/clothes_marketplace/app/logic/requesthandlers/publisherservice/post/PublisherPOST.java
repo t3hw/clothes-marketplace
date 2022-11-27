@@ -19,7 +19,7 @@ import com.ravid.clothes_marketplace.app.db.repo.GarmentRepository;
 import com.ravid.clothes_marketplace.app.db.repo.PublisherRepository;
 import com.ravid.clothes_marketplace.app.errors.UserException;
 import com.ravid.clothes_marketplace.app.logic.requesthandlers.RequestHandler;
-import com.ravid.clothes_marketplace.server.model.GarmentRequestDTO;
+import com.ravid.clothes_marketplace.server.model.GarmentPOSTRequestDTO;
 import com.ravid.clothes_marketplace.server.model.GarmentResponseDTO;
 
 
@@ -28,7 +28,7 @@ import com.ravid.clothes_marketplace.server.model.GarmentResponseDTO;
 @Lazy
 public class PublisherPOST extends RequestHandler {
 
-    private GarmentRequestDTO req;
+    private GarmentPOSTRequestDTO req;
     private String publisherId;
     @Autowired private PublisherRepository pubRepo;
     @Autowired private GarmentRepository garmentRepo;
@@ -43,7 +43,7 @@ public class PublisherPOST extends RequestHandler {
             throw new UserException("MISSING MANDATORY PARAM OR UNDEFINED ENUM VALUE: garmentType", new HttpClientErrorException(HttpStatus.BAD_REQUEST));
         if (req.getGarmentSize() == null)
             throw new UserException("MISSING MANDATORY PARAM OR UNDEFINED ENUM VALUE: garmentSize", new HttpClientErrorException(HttpStatus.BAD_REQUEST));
-        if (req.getGarmentSize() == null)
+        if (req.getPrice() == null)
             throw new UserException("MISSING MANDATORY PARAM: price", new HttpClientErrorException(HttpStatus.BAD_REQUEST));
 
         // Populate garment properties and save to repository
@@ -57,7 +57,7 @@ public class PublisherPOST extends RequestHandler {
     }
 
     // Abstract class initilization
-    public PublisherPOST(GarmentRequestDTO req, String publisherId) {
+    public PublisherPOST(GarmentPOSTRequestDTO req, String publisherId) {
         super(null);
         this.req = req;
         this.publisherId = publisherId;

@@ -53,6 +53,7 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler{
                                 .exception(ex.getMessage()).status(BigDecimal.valueOf(400)));
     }
 
+    // Construct dynamic error response
     protected ResponseEntity<ErrorResponseDTO> manageUserException(UserException ex,
             WebRequest request) {
         if (ex.getCause() instanceof HttpClientErrorException)
