@@ -1,4 +1,4 @@
-package com.ravid.clothes_marketplace.app.service.interceptors;
+package com.ravid.clothes_marketplace.app.interceptors;
 
 import java.util.Optional;
 
@@ -30,8 +30,8 @@ public class IncomingRequestInterceptor implements HandlerInterceptor, Applicati
       throws Exception {
         
         // Save crucial data to request scope bean for access later down the processing pipeline
-        RequestScopeData requestData = context.getBean(RequestScopeData.class,request.getMethod());
-
+        RequestScopeData requestData = context.getBean(RequestScopeData.class,request.getRequestURI());
+        
         // Only validate jwt of request URIs matching the filter. Unauthorized exception will be thrown if JWT is missing, invalid, or the user is unauthorized
         String jwt = null;
         if (Optional.of(request.getRequestURI()).filter(props.getAuthRequestFilter()).isPresent()) {

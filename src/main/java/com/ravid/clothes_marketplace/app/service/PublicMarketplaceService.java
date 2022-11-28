@@ -1,7 +1,7 @@
 package com.ravid.clothes_marketplace.app.service;
 
+import com.ravid.clothes_marketplace.app.interceptors.RequestScopeData;
 import com.ravid.clothes_marketplace.app.logic.requesthandlers.RequestHandler;
-import com.ravid.clothes_marketplace.app.service.interceptors.RequestScopeData;
 import com.ravid.clothes_marketplace.server.api.MarketplaceApiDelegate;
 import com.ravid.clothes_marketplace.server.model.ClothesResponseDTO;
 
@@ -19,8 +19,8 @@ public class PublicMarketplaceService implements MarketplaceApiDelegate, Applica
     public ResponseEntity<ClothesResponseDTO> getClothes(String sellerName, String sellerId
                                                         ,String garmentType, Float minPrice
                                                         ,Float maxPrice, String size) {
-        String httpMethod = context.getBean(RequestScopeData.class).getHttpMethod();
-        return ((RequestHandler) context.getBean("query"+httpMethod ,sellerName,sellerId,garmentType,minPrice,maxPrice,size)).handleRequest();
+        String operationName = context.getBean(RequestScopeData.class).getOperationName();
+        return ((RequestHandler) context.getBean(operationName ,sellerName,sellerId,garmentType,minPrice,maxPrice,size)).handleRequest();
     }
 
     @Override

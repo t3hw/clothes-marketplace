@@ -27,7 +27,7 @@ import lombok.SneakyThrows;
 @Component
 @Scope(value = WebApplicationContext.SCOPE_REQUEST,proxyMode = ScopedProxyMode.DEFAULT)
 @Lazy
-public class AuthenticationPOST extends RequestHandler {
+public class Authenticate extends RequestHandler {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 	@Autowired
@@ -63,7 +63,7 @@ public class AuthenticationPOST extends RequestHandler {
 	}
 
     // Abstract class initilization
-    public AuthenticationPOST(AuthenticationRequestDTO req) {
+    public Authenticate(AuthenticationRequestDTO req) {
         super(null);
         this.req = req;
     }

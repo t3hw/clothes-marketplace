@@ -13,9 +13,11 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.ravid.clothes_marketplace.server.model.ErrorResponseDTO;
 
 import lombok.extern.log4j.Log4j2;
+
 
 @RestControllerAdvice
 @Log4j2
@@ -23,6 +25,13 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler{
     
 
     // Exception handlers
+
+    @ExceptionHandler(JWTVerificationException.class)
+    public final ResponseEntity<ErrorResponseDTO> handleJwtErrors(JWTVerificationException ex, WebRequest request) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponseDTO().error("UNAUTHORIZED")
+                        .exception(ex.getMessage()).status(BigDecimal.valueOf(401)));
+    }
+
     @ExceptionHandler(AccessDeniedException.class)
     public final ResponseEntity<ErrorResponseDTO> handleAccessDeniedException(AccessDeniedException ex, WebRequest request) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponseDTO().error("UNAUTHORIZED")

@@ -21,10 +21,10 @@ import com.ravid.clothes_marketplace.server.model.GarmentSize;
 import com.ravid.clothes_marketplace.server.model.GarmentType;
 import com.ravid.clothes_marketplace.server.model.PublisherDTO;
 
-@Component
+@Component("clothes")
 @Scope(value = WebApplicationContext.SCOPE_REQUEST,proxyMode = ScopedProxyMode.DEFAULT)
 @Lazy
-public class QueryGET extends RequestHandler {
+public class Clothes extends RequestHandler {
 
     @Autowired
     GarmentRepository repo;
@@ -75,7 +75,7 @@ public class QueryGET extends RequestHandler {
     }
 
     // Abstract class initilization
-    public QueryGET(String publisherNamePattern,
+    public Clothes(String publisherNamePattern,
                     String publisherId,
                     String type,
                     Float minPrice,

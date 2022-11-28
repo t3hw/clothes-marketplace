@@ -20,10 +20,11 @@ import com.ravid.clothes_marketplace.app.db.repo.PublisherRepository;
 import com.ravid.clothes_marketplace.app.errors.UserException;
 import com.ravid.clothes_marketplace.app.logic.requesthandlers.RequestHandler;
 
-@Component
+// For Dynamic handling
+@Component("publisher.deleteGarment")
 @Scope(value = WebApplicationContext.SCOPE_REQUEST,proxyMode = ScopedProxyMode.DEFAULT)
 @Lazy
-public class PublisherDELETE extends RequestHandler {
+public class DeleteGarment extends RequestHandler {
 
     private BigDecimal garmentId;
     private String publisherId;
@@ -44,7 +45,7 @@ public class PublisherDELETE extends RequestHandler {
     }
 
     // Abstract class initilization
-    public PublisherDELETE(BigDecimal garmentId, String publisherId) {
+    public DeleteGarment(BigDecimal garmentId, String publisherId) {
         super(null);
         this.garmentId = garmentId;
         this.publisherId = publisherId;

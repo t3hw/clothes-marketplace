@@ -6,8 +6,8 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.ravid.clothes_marketplace.app.interceptors.RequestScopeData;
 import com.ravid.clothes_marketplace.app.logic.requesthandlers.RequestHandler;
-import com.ravid.clothes_marketplace.app.service.interceptors.RequestScopeData;
 import com.ravid.clothes_marketplace.server.api.AuthenticateApiDelegate;
 import com.ravid.clothes_marketplace.server.model.AuthenticationRequestDTO;
 import com.ravid.clothes_marketplace.server.model.AuthenticationResponseDTO;
@@ -19,8 +19,8 @@ public class AuthenticationService implements AuthenticateApiDelegate, Applicati
     @Override
     public ResponseEntity<AuthenticationResponseDTO> authenticateUser(
             AuthenticationRequestDTO authenticationRequestDTO) {
-        String httpMethod = context.getBean(RequestScopeData.class).getHttpMethod();
-        return ((RequestHandler) context.getBean("authentication"+httpMethod, authenticationRequestDTO)).handleRequest();
+        String getOperationName = context.getBean(RequestScopeData.class).getOperationName();
+        return ((RequestHandler) context.getBean(getOperationName, authenticationRequestDTO)).handleRequest();
     }
 
     @Override

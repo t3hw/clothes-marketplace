@@ -6,7 +6,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.ravid.clothes_marketplace.app.service.interceptors.IncomingRequestInterceptor;
+import com.ravid.clothes_marketplace.app.interceptors.IncomingRequestInterceptor;
 
 @EnableWebMvc
 @Configuration
