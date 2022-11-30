@@ -28,4 +28,4 @@
 
 #### swagger page:
 
-`{protocol}:{host}:{port}/swagger-ui.html`
+`{protocol}:{host}:{port}/swagger-ui/index.html`
