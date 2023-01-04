@@ -37,7 +37,7 @@ public class Clothes extends RequestHandler {
     private Optional<Float>  maxPrice;
 
     @Override
-    @SuppressWarnings({"unchecked","null"})
+    @SuppressWarnings({"unchecked"})
     public <T> ResponseEntity<T> handleRequest(){
         List<Garment> queryResult = repo.findGarmentsBySearchParams(publisherNamePattern,
                                                                     publisherId,
