@@ -9,5 +9,6 @@
         "name": "marketplaceTesting",
         "workingDirectory": "${workspaceFolder}",
         "envFile": "${workspaceFolder}/.env"
-    }
+    },
+    "java.compile.nullAnalysis.mode": "disabled"
 }
