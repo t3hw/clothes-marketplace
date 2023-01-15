@@ -201,6 +201,16 @@
                     <additionalClasspathElements>
                         <additionalClasspathElement>${basedir}/src/main/java</additionalClasspathElement>
                     </additionalClasspathElements>
+                    <environmentVariables>
+                        <DbUrl>jdbc:mysql://host.docker.internal:3306/</DbUrl>
+                        <DbParams>?serverTimezone=UTC&amp;useLegacyDatetimeCode=FALSE&amp;useSSL=FALSE&amp;allowPublicKeyRetrieval=TRUE</DbParams>
+                        <DbName>db</DbName>
+                        <DBusername>admin</DBusername>
+                        <DBpassword>admin123</DBpassword>
+                        <LOGGER_APPENDER>Text</LOGGER_APPENDER>
+                        <SPRING_CONFIG_NAME>application</SPRING_CONFIG_NAME>
+                        <SPRING_CONFIG_LOCATION>./properties/</SPRING_CONFIG_LOCATION>
+                    </environmentVariables>
                 </configuration>
             </plugin>
 
