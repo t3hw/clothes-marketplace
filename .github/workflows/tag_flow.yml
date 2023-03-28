@@ -20,7 +20,7 @@ jobs:
     steps:
     - name: Get version from tag
       id: version
-      run: echo ::set-output name=version::${GITHUB_REF#refs/tags/v}
+      run: echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
 
     - name: Set VERSION environment variable
       run: echo "VERSION=${{ github.ref_name }}" >> $GITHUB_ENV
