@@ -18,6 +18,11 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Runs a single command using the runners shell
-    - name: Send greeting
-      run: echo Test
+    - name: Set VERSION environment variable
+      run: echo "VERSION=${{ github.ref_name }}" >> $GITHUB_ENV
+      
+    - name: echo version
+      run: echo ${{ env.VERSION }}
+    
+    - name: echo sha
+      run: echo ${{ github.sha }}
