@@ -7,10 +7,10 @@ name: Build and push
 on:
   release:
     types: [created, edited]
-    if: github.event.release.draft == false && github.event.release.prerelease == false
 
 jobs:
   build-and-push:
+    if: github.event.release.draft == false && github.event.release.prerelease == false
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
