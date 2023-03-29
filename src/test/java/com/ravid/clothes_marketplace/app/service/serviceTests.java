@@ -36,7 +36,7 @@ public class serviceTests {
 
     @Test
     void testAuth() {
-        ResponseEntity<AuthenticationResponseDTO> authres = ((RequestHandler) context.getBean("authenticationPOST",
+        ResponseEntity<AuthenticationResponseDTO> authres = ((RequestHandler) context.getBean("authenticate",
                 new AuthenticationRequestDTO().userId("123456789").password("ravid123"))).handleRequest();
 
         var token = jwtUtil.decodeToken(authres.getBody().getToken());
@@ -61,7 +61,7 @@ public class serviceTests {
     void testModifyGarment() {
         ResponseEntity<GarmentResponseDTO> postRes = runPOST("2");
 
-        ((RequestHandler) context.getBean("publisherPUT", postRes.getBody().getGarmentId(),
+        ((RequestHandler) context.getBean("publisher.updateGarment", postRes.getBody().getGarmentId(),
                 new GarmentPUTRequestDTO().price(Float.parseFloat("80000")).garmentSize(GarmentSize.S)
                         .garmentType(GarmentType.SHIRT),
                 "123456789")).handleRequest();
@@ -77,7 +77,7 @@ public class serviceTests {
     void testDeleteGarment() {
         ResponseEntity<GarmentResponseDTO> postRes = runPOST("20000000");
 
-        ((RequestHandler) context.getBean("publisherDELETE", postRes.getBody().getGarmentId(),
+        ((RequestHandler) context.getBean("publisher.deleteGarment", postRes.getBody().getGarmentId(),
                 "123456789")).handleRequest();
 
         assertTrue(runQuery("70000").getBody().getPublisherList() == null);
@@ -86,13 +86,13 @@ public class serviceTests {
 
 
     private ResponseEntity<ClothesResponseDTO> runQuery(String minPrice) {
-        return ((RequestHandler) context.getBean("queryGET", "ravid",
+        return ((RequestHandler) context.getBean("clothes", "ravid",
                 "123456789", null, Float.parseFloat(minPrice), null, null)).handleRequest();
     }
 
     private ResponseEntity<GarmentResponseDTO> runPOST(String price) {
         ResponseEntity<GarmentResponseDTO> postRes = ((RequestHandler) context
-                .getBean("publisherPOST",
+                .getBean("publisher.publishNewGarment",
                         new GarmentPOSTRequestDTO().garmentSize(GarmentSize.L).garmentType(GarmentType.HAT)
                                 .price(Float.parseFloat(price)).garmentDescription("testing"),
                         "123456789"))
