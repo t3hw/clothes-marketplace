@@ -9,7 +9,7 @@ RUN  --mount=type=cache,target=/root/.m2 mvn -Dmaven.test.skip -f /home/app/clot
 #
 # Package stage
 #
-FROM openjdk:17-jdk-oraclelinux8
+FROM openjdk:17-jdk-alpine
 COPY --from=build /home/app/clothes-marketplace/target/*.jar /lib/clothes-marketplace.jar
 COPY properties /lib/properties
 EXPOSE 2000
