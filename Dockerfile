@@ -4,9 +4,9 @@ WORKDIR /home/app
 
 ADD src src
 ADD swagger_impl swagger_impl
-RUN mvn install:install-file -DpomFile=swagger_impl/server_swaggers.xml -Dfile=swagger_impl/clothes_marketplace_server_swaggers-1.0.0.jar -DgroupId=com.ravid.clothes_marketplace -DartifactId=clothes_marketplace_server_swaggers -Dversion=1.0.0 -Dpackaging=jar -DgeneratePom=false
+RUN --mount=type=cache,target=/root/.m2 mvn install:install-file -DpomFile=swagger_impl/server_swaggers.xml -Dfile=swagger_impl/clothes_marketplace_server_swaggers-1.0.0.jar -DgroupId=com.ravid.clothes_marketplace -DartifactId=clothes_marketplace_server_swaggers -Dversion=1.0.0 -Dpackaging=jar -DgeneratePom=false
 ADD pom.xml pom.xml
-RUN  --mount=type=cache,target=/root/.m2 mvn -Dmaven.test.skip -f pom.xml clean package
+RUN --mount=type=cache,target=/root/.m2 mvn -Dmaven.test.skip -f pom.xml clean package
 
 
 #
