@@ -5,11 +5,9 @@ name: Build and push
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
 on:
-  push:
-    # branches:
-    #   - master
-    tags:
-      - v*.*.*
+  release:
+    types: [created, edited]
+    if: github.event.release.draft == false && github.event.release.prerelease == false
 
 jobs:
   build-and-push:
