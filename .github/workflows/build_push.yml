@@ -73,7 +73,8 @@ jobs:
             ${{ vars.IMAGE_NAME }}:${{ github.sha }}
       
       - name: echo ls cache
-        run: ls -la /tmp/.buildex-cache
+        working-directory : "/tmp/.buildx-cache"
+        run: "ls -la"
 
       #   run: |
       #     curl -X POST \
