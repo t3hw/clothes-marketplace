@@ -16,10 +16,8 @@ on:
         # Input has to be provided for the workflow to run
         required: true
   push:
-    branches:
-      - master
-    # tags:
-    #   - v*.*.*
+    tags:
+      - v*.*.*
 
 
 jobs:
