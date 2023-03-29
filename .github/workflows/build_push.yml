@@ -42,12 +42,12 @@ jobs:
 
       - name: Restore buildx cache
         id: cache-buildx-restore
-        uses: actions/cache/restore@v3
+        uses: actions/cache@v3
         with:
           path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-${{ vars.IMAGE_NAME }}_buildx-${{ github.ref_name }}
+          key: ${{ runner.os }}-clothes_marketplace_buildx-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-${{ vars.IMAGE_NAME }}_buildx-
+            ${{ runner.os }}-clothes_marketplace_buildx-
 
       # - name: Restore maven cache
       #   id: cache-maven-restore
@@ -72,18 +72,9 @@ jobs:
             ${{ vars.IMAGE_NAME }}:${{ env.VERSION }}
             ${{ vars.IMAGE_NAME }}:${{ github.sha }}
       
-      - name: Save buildx cache
-        uses: actions/cache/save@v3
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ steps.cache-buildx-restore.outputs.cache-primary-key }}
+      - name: echo ls cache
+        run: ls -la /tmp/.buildex-cache
 
-      # - name: Save maven cache
-      #   uses: actions/cache/save@v3
-      #   with:
-      #     path: ~/.m2/repository
-      #     key: ${{ steps.cache-maven-restore.outputs.cache-primary-key }}
-      # - name: Call remote jenkins using webhook
       #   run: |
       #     curl -X POST \
       #         -H "Content-Type: application/json" \
