@@ -1,4 +1,3 @@
-FROM openjdk:17-jdk-oraclelinux8
 FROM maven:3.8.5 AS build
 COPY src /home/app/clothes-marketplace/src
 COPY swagger_impl /home/app/swagger_impl
