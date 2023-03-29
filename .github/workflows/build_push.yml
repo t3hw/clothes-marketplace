@@ -6,11 +6,10 @@ name: Build and push
 # or API.
 on:
   push:
-    branches:
-      - master
+    # branches:
+    #   - master
     tags:
       - v*.*.*
-
 
 jobs:
   build-and-push:
@@ -66,8 +65,6 @@ jobs:
       - name: echo ls cache
         working-directory : "/tmp/.buildx-cache"
         run: "ls -la"
-
-      - name: Prune
       #   run: |
       #     curl -X POST \
       #         -H "Content-Type: application/json" \
