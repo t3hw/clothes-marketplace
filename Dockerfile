@@ -13,7 +13,7 @@ RUN --mount=type=cache,target=/root/.m2 mvn -Dmaven.test.skip -f pom.xml clean p
 # Package stage
 #
 FROM openjdk:17-jdk-alpine
-COPY --from=build /home/app/clothes-marketplace/target/*.jar /lib/clothes-marketplace.jar
+COPY --from=build /home/app/target/*.jar /lib/clothes-marketplace.jar
 COPY properties /lib/properties
 EXPOSE 2000
 ENTRYPOINT ["java","-jar","/lib/clothes-marketplace.jar"]
