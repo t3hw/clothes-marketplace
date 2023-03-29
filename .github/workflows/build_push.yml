@@ -64,7 +64,7 @@ jobs:
       
       - name: echo ls cache
         working-directory : "/tmp/.buildx-cache"
-        run: "ls -la"
+        run: "ls -laR"
       #   run: |
       #     curl -X POST \
       #         -H "Content-Type: application/json" \
