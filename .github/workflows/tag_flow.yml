@@ -5,7 +5,7 @@ name: Tag flow
 on:
   push:
     branches:
-      - main
+      - changes
     tags:
       - v*.*.*
 
