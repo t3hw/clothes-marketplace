@@ -15,6 +15,11 @@ on:
         default: 'World'
         # Input has to be provided for the workflow to run
         required: true
+  push:
+    branches:
+      - main
+    tags:
+      - v*.*.*
 
 jobs:
   build-and-push:
