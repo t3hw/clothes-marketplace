@@ -55,8 +55,8 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          cache-from: type=local,src=/var/.buildx-cache,mode=max
-          cache-to: type=local,dest=/var/.buildx-cache,mode=max
+          cache-from: type=local,src=/tmp/build-cache,mode=max
+          cache-to: type=local,dest=/tmp/build-cache,mode=max
           push: true
           tags: |
             ${{ vars.IMAGE_NAME }}:latest
