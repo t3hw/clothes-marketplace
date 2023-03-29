@@ -9,7 +9,7 @@ services:
     expose:
       - '2000'
     environment:
-      DbUrl: "jdbc:mysql://host.docker.internal:3306/"
+      DbUrl: "jdbc:mysql://db:3306/"
       DbParams: "?serverTimezone=UTC&useLegacyDatetimeCode=FALSE&useSSL=FALSE&allowPublicKeyRetrieval=TRUE"
       DbName: "db"
       DBusername: "admin"
@@ -20,6 +20,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    networks:
+      - marketplace-network
   db:
     build: ../../../db
     image: ravidgontov/marketplace-db:latest
@@ -39,5 +41,9 @@ services:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
       timeout: 20s
       retries: 10
+    networks:
+      - marketplace-network
+networks:
+  marketplace-network:
 volumes:
   my-db:
