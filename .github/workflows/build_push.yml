@@ -7,6 +7,9 @@ name: Build and push
 on:
   push:
     branches:
+      - changes
+  push:
+    branches:
       - master
     tags:
       - v*.*.*
@@ -67,6 +70,7 @@ jobs:
         working-directory : "/tmp/.buildx-cache"
         run: "ls -la"
 
+      - name: Prune
       #   run: |
       #     curl -X POST \
       #         -H "Content-Type: application/json" \
