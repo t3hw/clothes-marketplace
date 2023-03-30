@@ -7,10 +7,11 @@ name: Build and push
 on:
   release:
     types: [created, edited]
+    if: github.event.release.draft == false && github.event.release.prerelease == false
 
 jobs:
   build-and-push:
-    if: github.event.release.draft == false && github.event.release.prerelease == false
+    # if: github.event.release.draft == false && github.event.release.prerelease == false
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -33,18 +34,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-clothes_marketplace_buildx-${{ github.sha }}
+          key: ${{ runner.os }}-${{ GITHUB_REPOSITORY }}_buildx-${{ hashFiles('/tmp/.buildx-cache') }}
           restore-keys: |
-            ${{ runner.os }}-clothes_marketplace_buildx-
-
-      # - name: Restore maven cache
-      #   id: cache-maven-restore
-      #   uses: actions/cache/restore@v3
-      #   with:
-      #     path: ~/.m2/repository
-      #     key: ${{ runner.os }}-DWM_maven-${{ hashFiles('**/pom.xml') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-DWM_maven-
+            ${{ runner.os }}-${{ GITHUB_REPOSITORY }}_buildx-
       
       - name: Build and push Docker image
         id: docker_build
@@ -52,20 +44,23 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          cache-from: type=local,src=/tmp/.buildx-cache,mode=max
-          cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
           push: true
           tags: |
             ${{ vars.IMAGE_NAME }}:latest
             ${{ vars.IMAGE_NAME }}:${{ env.VERSION }}
             ${{ vars.IMAGE_NAME }}:${{ github.sha }}
-      
-      - name: echo ls cache
-        working-directory : "/tmp/.buildx-cache"
-        run: "ls -laR"
-      #   run: |
-      #     curl -X POST \
-      #         -H "Content-Type: application/json" \
-      #         -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-      #         -d '{"event_type": "dwm_master_tag", "client_payload": {"image_name": "clothes_marketplace:${{ env.VERSION }}", "key2": "value2"}}' \
-      #       https://jenkins.example.com/github-webhook/
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Set VERSION environment variable
+  #       run: echo "VERSION=${{ github.ref_name }}" >> $GITHUB_ENV
+
+  #     - name: Trigger Jenkins job
+  #       run: |
+  #         curl -X POST \
+  #             -H "Content-Type: application/json" \
+  #             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+  #             -d '{"event_type": "deploy_image", "client_payload": {"image": "${{ vars.IMAGE_NAME }}:${{ env.VERSION }}", "repository": "${{ GITHUB_REPOSITORY }}, "branch_tag": "${{ GITHUB_REF_NAME }}"}}' \
+  #           https://jenkins.webhose.io/github-webhook/
