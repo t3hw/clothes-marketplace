@@ -8,6 +8,9 @@ on:
   release:
     types: [created, edited]
     if: github.event.release.draft == false && github.event.release.prerelease == false
+env:
+  IMAGE_NAME: ${{ vars.IMAGE_NAME }}
+  VERSION: ${{ github.ref_name }}
 
 jobs:
   build-and-push:
@@ -46,6 +49,8 @@ jobs:
           file: ./Dockerfile
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
+          build-args: |
+            DB_PASSWORD=${{ secrets.DB_PASSWORD }}
           push: true
           tags: |
             ${{ vars.IMAGE_NAME }}:latest
@@ -56,11 +61,11 @@ jobs:
   #   steps:
   #     - name: Set VERSION environment variable
   #       run: echo "VERSION=${{ github.ref_name }}" >> $GITHUB_ENV
-
+  #
   #     - name: Trigger Jenkins job
   #       run: |
   #         curl -X POST \
   #             -H "Content-Type: application/json" \
   #             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-  #             -d '{"event_type": "deploy_image", "client_payload": {"image": "${{ vars.IMAGE_NAME }}:${{ env.VERSION }}", "repository": "${{ GITHUB_REPOSITORY }}, "branch_tag": "${{ GITHUB_REF_NAME }}"}}' \
+  #             -d '{"event_type": "deploy_image", "client_payload": {"image": "$IMAGE_NAME:$VERSION", "repository": "${{ GITHUB_REPOSITORY }}, "branch_tag": "$VERSION"}}' \
   #           https://jenkins.webhose.io/github-webhook/
