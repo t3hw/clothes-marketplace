@@ -1,7 +1,5 @@
 package com.ravid.clothes_marketplace.app.db.model;
 
-import java.math.BigDecimal;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -70,7 +68,7 @@ public class Garment {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id", nullable = false, updatable = false, insertable= false)
-    BigDecimal id;
+    Integer id;
 
     @Column(name = "garment_type",nullable = false, insertable = true, updatable = true, length = 10)
     @NonNull

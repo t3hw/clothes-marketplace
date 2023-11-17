@@ -1,6 +1,5 @@
 package com.ravid.clothes_marketplace.app.db.repo;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,7 +11,7 @@ import com.ravid.clothes_marketplace.app.db.model.Publisher;
 import com.ravid.clothes_marketplace.app.db.repo.fragmentrepositories.DynamicGarmentRepository;
 
 @Repository
-public interface GarmentRepository extends DynamicGarmentRepository, JpaRepository<Garment, BigDecimal>{
+public interface GarmentRepository extends DynamicGarmentRepository, JpaRepository<Garment, Integer>{
     public List<Garment> findAllByPublisher(Publisher publisher);
     public List<Garment> findAllBySize(String size);
     // public Integer deleteById(BigDecimal id);
@@ -24,7 +23,7 @@ public interface GarmentRepository extends DynamicGarmentRepository, JpaReposito
     public List<Garment> getGarmentsWithMinPrice(Float minPrice);
     public List<Garment> getGarmentsWithMaxPrice(Float maxPrice);
     @Modifying
-    public Integer deleteGarmByGarmId(BigDecimal id);
+    public Integer deleteGarmByGarmId(Integer id);
     @Modifying
-    public void updateGarmByGarmId(BigDecimal id, String type, String size, String description ,Float price);
+    public void updateGarmByGarmId(Integer id, String type, String size, String description ,Float price);
 }

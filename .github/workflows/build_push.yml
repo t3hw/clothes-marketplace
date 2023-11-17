@@ -37,11 +37,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: /tmp/.buildx-cache
-          key: Linux-clothes_marketplace_buildx-7a3738eb0ceadffd6b42d174ecd0b8a29b6e83bf
-          # key: ${{ runner.os }}-${{ GITHUB_REPOSITORY }}_buildx-${{ hashFiles('/tmp/.buildx-cache') }}
+          key: ${{ runner.os }}-${{ GITHUB_REPOSITORY }}_buildx-${{ hashFiles('/tmp/.buildx-cache') }}
           restore-keys: |
-            Linux-clothes_marketplace_buildx-7a3738eb0ceadffd6b42d174ecd0b8a29b6e83bf
-          # test: ${{ runner.os }}-${{ GITHUB_REPOSITORY }}_buildx-
+            ${{ runner.os }}-${{ GITHUB_REPOSITORY }}_buildx-
       
       - name: Build and push Docker image
         id: docker_build

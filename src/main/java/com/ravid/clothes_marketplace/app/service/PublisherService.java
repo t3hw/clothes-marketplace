@@ -1,7 +1,5 @@
 package com.ravid.clothes_marketplace.app.service;
 
-import java.math.BigDecimal;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.BeansException;
@@ -25,7 +23,7 @@ public class PublisherService implements PublisherApiDelegate, ApplicationContex
     // Dynamically injecting request handlers for our methods
 
     @Override
-    public ResponseEntity<Void> deleteGarment(BigDecimal id) {
+    public ResponseEntity<Void> deleteGarment(Integer id) {
         RequestScopeData data = context.getBean(RequestScopeData.class);
         return ((RequestHandler) context.getBean(data.getControllerName() + data.getOperationName(), id, data.getUserId())).handleRequest();
     }
@@ -37,7 +35,7 @@ public class PublisherService implements PublisherApiDelegate, ApplicationContex
     }
 
     @Override
-    public ResponseEntity<Void> updateGarment(BigDecimal id, @Valid GarmentPUTRequestDTO garmentRequestDTO) {
+    public ResponseEntity<Void> updateGarment(Integer id, @Valid GarmentPUTRequestDTO garmentRequestDTO) {
         RequestScopeData data = context.getBean(RequestScopeData.class);
         return ((RequestHandler) context.getBean(data.getControllerName() + data.getOperationName(), id, garmentRequestDTO, data.getUserId())).handleRequest();
     }

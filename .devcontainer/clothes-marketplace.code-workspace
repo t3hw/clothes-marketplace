@@ -12,6 +12,7 @@
         "java.dependency.packagePresentation": "hierarchical",
         "java.dependency.syncWithFolderExplorer": true,
         "java.import.gradle.wrapper.enabled": false,
-        "java.import.gradle.enabled": false
+        "java.import.gradle.enabled": false,
+        "java.compile.nullAnalysis.mode": "disabled"
     }
 }
