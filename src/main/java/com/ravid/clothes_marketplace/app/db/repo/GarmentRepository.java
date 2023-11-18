@@ -14,7 +14,7 @@ import com.ravid.clothes_marketplace.app.db.repo.fragmentrepositories.DynamicGar
 public interface GarmentRepository extends DynamicGarmentRepository, JpaRepository<Garment, Integer>{
     public List<Garment> findAllByPublisher(Publisher publisher);
     public List<Garment> findAllBySize(String size);
-    // public Integer deleteById(BigDecimal id);
+    // public Integer deleteById(Integer id);
     
     /* Named Queries */
 

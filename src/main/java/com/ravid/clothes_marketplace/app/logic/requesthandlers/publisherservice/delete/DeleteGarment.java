@@ -1,7 +1,5 @@
 package com.ravid.clothes_marketplace.app.logic.requesthandlers.publisherservice.delete;
 
-import java.math.BigDecimal;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +24,7 @@ import com.ravid.clothes_marketplace.app.logic.requesthandlers.RequestHandler;
 @Lazy
 public class DeleteGarment extends RequestHandler {
 
-    private BigDecimal garmentId;
+    private Integer garmentId;
     private String publisherId;
     @Autowired private PublisherRepository pubRepo;
     @Autowired private GarmentRepository garmentRepo;
@@ -45,7 +43,7 @@ public class DeleteGarment extends RequestHandler {
     }
 
     // Abstract class initilization
-    public DeleteGarment(BigDecimal garmentId, String publisherId) {
+    public DeleteGarment(Integer garmentId, String publisherId) {
         super(null);
         this.garmentId = garmentId;
         this.publisherId = publisherId;

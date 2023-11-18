@@ -1,7 +1,5 @@
 package com.ravid.clothes_marketplace.app.logic.requesthandlers.publisherservice.put;
 
-import java.math.BigDecimal;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +25,7 @@ import com.ravid.clothes_marketplace.server.model.GarmentPUTRequestDTO;
 @Lazy
 public class UpdateGarment extends RequestHandler {
 
-    private BigDecimal garmentId;
+    private Integer garmentId;
     private GarmentPUTRequestDTO req;
     private String publisherId;
     @Autowired private PublisherRepository pubRepo;
@@ -63,7 +61,7 @@ public class UpdateGarment extends RequestHandler {
     }
 
     // Abstract class initilization
-    public UpdateGarment(BigDecimal garmentId, GarmentPUTRequestDTO req, String publisherId) {
+    public UpdateGarment(Integer garmentId, GarmentPUTRequestDTO req, String publisherId) {
         super(null);
         this.garmentId = garmentId;
         this.req = req;
