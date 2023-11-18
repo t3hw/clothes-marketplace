@@ -1,6 +1,6 @@
 package com.ravid.clothes_marketplace.app.service;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

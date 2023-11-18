@@ -64,8 +64,10 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler{
     // Construct dynamic error response
     protected ResponseEntity<ErrorResponseDTO> manageUserException(UserException ex,
             WebRequest request) {
-        if (ex.getCause() instanceof HttpClientErrorException)
-            switch (((HttpClientErrorException) ex.getCause()).getStatusCode()) {
+        if (ex.getCause() instanceof HttpClientErrorException) {
+            HttpStatus status = (HttpStatus) ((HttpClientErrorException) ex.getCause()).getStatusCode();
+
+            switch (status) {
                 case BAD_REQUEST:
                     log.info("bad request: " + ex.getMessage());
                     return ResponseEntity.badRequest().body(new ErrorResponseDTO().error("BAD REQUEST")
@@ -86,6 +88,7 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler{
                     log.error("Uncaught HttpClientErrorException", ex);
                     return ResponseEntity.internalServerError().body(new ErrorResponseDTO().error("UNEXPECTED ERROR OCCURED")
                             .exception(ex.getMessage()).status(500));
+            }
         } else {
             log.error("Uncaught UserException", ex);
             return ResponseEntity.internalServerError().body(new ErrorResponseDTO().error("UNEXPECTED ERROR OCCURED")

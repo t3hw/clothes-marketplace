@@ -2,7 +2,7 @@ package com.ravid.clothes_marketplace.app.service;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

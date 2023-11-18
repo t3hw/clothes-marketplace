@@ -5,6 +5,10 @@ import com.ravid.clothes_marketplace.app.logic.requesthandlers.RequestHandler;
 import com.ravid.clothes_marketplace.server.api.MarketplaceApiDelegate;
 import com.ravid.clothes_marketplace.server.model.ClothesResponseDTO;
 
+import jakarta.validation.constraints.Size;
+
+import java.util.Optional;
+
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -16,9 +20,9 @@ public class PublicMarketplaceService implements MarketplaceApiDelegate, Applica
     private ApplicationContext context;
 
     @Override
-    public ResponseEntity<ClothesResponseDTO> getClothes(String sellerName, String sellerId
-                                                        ,String garmentType, Float minPrice
-                                                        ,Float maxPrice, String size) {
+    public ResponseEntity<ClothesResponseDTO> getClothes(Optional<String> sellerName, Optional<@Size(max = 9) String> sellerId, 
+                                                        Optional<String> garmentType, Optional<Float> minPrice,
+                                                        Optional<Float> maxPrice, Optional<String> size) {
         String operationName = context.getBean(RequestScopeData.class).getOperationName();
         return ((RequestHandler) context.getBean(operationName ,sellerName,sellerId,garmentType,minPrice,maxPrice,size)).handleRequest();
     }

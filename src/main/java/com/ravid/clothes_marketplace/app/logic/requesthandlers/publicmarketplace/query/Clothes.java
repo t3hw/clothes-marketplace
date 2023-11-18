@@ -21,6 +21,8 @@ import com.ravid.clothes_marketplace.server.model.GarmentSize;
 import com.ravid.clothes_marketplace.server.model.GarmentType;
 import com.ravid.clothes_marketplace.server.model.PublisherDTO;
 
+import jakarta.validation.constraints.Size;
+
 @Component("clothes")
 @Scope(value = WebApplicationContext.SCOPE_REQUEST,proxyMode = ScopedProxyMode.DEFAULT)
 @Lazy
@@ -75,18 +77,15 @@ public class Clothes extends RequestHandler {
     }
 
     // Abstract class initilization
-    public Clothes(String publisherNamePattern,
-                    String publisherId,
-                    String type,
-                    Float minPrice,
-                    Float maxPrice,
-                    String size) {
+    public Clothes(Optional<String> sellerName, Optional<@Size(max = 9) String> sellerId, 
+                   Optional<String> garmentType, Optional<Float> minPrice,
+                   Optional<Float> maxPrice, Optional<String> size) {
         super(null);
-        this.publisherNamePattern = Optional.ofNullable(publisherNamePattern);
-        this.publisherId = Optional.ofNullable(publisherId);
-        this.type = Optional.ofNullable(type);
-        this.minPrice  = Optional.ofNullable(minPrice);
-        this.maxPrice = Optional.ofNullable(maxPrice);
-        this.size = Optional.ofNullable(size);
+        this.publisherNamePattern = sellerName;
+        this.publisherId = sellerId;
+        this.type = garmentType;
+        this.minPrice  = minPrice;
+        this.maxPrice = maxPrice;
+        this.size = size;
     }
 }
