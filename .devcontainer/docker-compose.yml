@@ -1,0 +1,41 @@
+version: '3.8'
+services:
+  devcontainer:
+    container_name: ${PROJ_NAME}
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ~/.ssh:/home/vscode/.ssh:cached
+      - ~/.m2:/home/vscode/.m2:cached
+      - ..:/workspaces/${PROJ_NAME}:cached      
+    command: sleep infinity
+    env_file:
+        # Ensure that the variables in .env match the same variables in devcontainer.json
+        - .env
+    networks:
+      - devcontainer_net
+  devdb:
+    container_name: mysql_dev_db
+    image: ravidgontov/marketplace-db:latest
+    restart: always
+    env_file:
+        # Ensure that the variables in .env match the same variables in devcontainer.json
+        - .env
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - my-db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 5s
+      retries: 40
+    networks:
+      - devcontainer_net
+
+volumes:
+  my-db:
+networks:
+  devcontainer_net:
