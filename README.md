@@ -15,6 +15,10 @@
 #### In maven, run clean, and compile
 #
 
+## Native Image:
+#### native image builder, prod profile:
+`mvn clean package -Pnative -DskipTests`
+
 
 ### Running the image locally
 #### docker compose

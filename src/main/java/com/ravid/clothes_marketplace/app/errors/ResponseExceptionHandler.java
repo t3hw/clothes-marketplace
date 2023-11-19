@@ -15,11 +15,11 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.ravid.clothes_marketplace.server.model.ErrorResponseDTO;
 
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 
 @RestControllerAdvice
-@Log4j2
+@Slf4j
 public class ResponseExceptionHandler extends ResponseEntityExceptionHandler{
     
 

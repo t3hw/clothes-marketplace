@@ -22,10 +22,13 @@ import com.ravid.clothes_marketplace.server.model.GarmentType;
 import com.ravid.clothes_marketplace.server.model.PublisherDTO;
 
 import jakarta.validation.constraints.Size;
+import lombok.extern.slf4j.Slf4j;
+import net.logstash.logback.marker.ObjectFieldsAppendingMarker;
 
 @Component("clothes")
 @Scope(value = WebApplicationContext.SCOPE_REQUEST,proxyMode = ScopedProxyMode.DEFAULT)
 @Lazy
+@Slf4j
 public class Clothes extends RequestHandler {
 
     @Autowired
@@ -73,6 +76,9 @@ public class Clothes extends RequestHandler {
             );
         }
         
+        var marker = new ObjectFieldsAppendingMarker(res);
+        log.info(marker, "clothes");
+
         return (ResponseEntity<T>) ResponseEntity.ok(res);
     }
 

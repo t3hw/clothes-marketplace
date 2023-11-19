@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+    
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+    <import class="ch.qos.logback.core.encoder.LayoutWrappingEncoder" />
+    <import class="ch.qos.logback.classic.encoder.JsonEncoder"/>
+    <import class="ch.qos.logback.core.FileAppender"/>
+    <import class="ch.qos.logback.core.ConsoleAppender"/>
+    <import class="ch.qos.logback.core.rolling.RollingFileAppender"/>
+    <import class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"/>
+    <import class="ch.qos.logback.contrib.json.classic.JsonLayout"/>
+
+    <springProperty name="log-pattern" source="logging.log-pattern"/>
+    <springProperty name="log-root" source="logging.app-log-root"/>
+    <springProperty name="appender-type" source="logging.appender-type"/>
+
+    <!-- <property name="APP_LOG_ROOT" value="${env:LOG_ROOT:-log}" />
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %5p %hostName-[%5.5t] %-20.20c{1} : %m%n%ex" />
+    <property name="APPENDER_TYPE" value="${env:LOGGER_APPENDER:-Text}" /> -->
+
+    <!-- Console Appenders -->
+    <appender name="ConsoleTextAppender" class="ConsoleAppender">
+        <encoder>
+            <pattern>${log-pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ConsoleJsonAppender" class="ConsoleAppender">
+        <encoder class="JsonEncoder">
+            <layout class="JsonLayout">
+                <timestampFormat>yyyy-MM-dd'T'HH:mm:ss.SSSX</timestampFormat>
+                <timestampFormatTimezoneId>Etc/UTC</timestampFormatTimezoneId>
+
+                <jsonFormatter class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter">
+                    <prettyPrint>true</prettyPrint>
+                </jsonFormatter>
+            </layout>
+        </encoder>
+    </appender>
+
+    <!-- Rolling File Appenders -->
+    <appender name="FileJsonAppender" class="RollingFileAppender">
+        <file>${log-root}/log.log</file>
+        <rollingPolicy class="TimeBasedRollingPolicy">
+            <fileNamePattern>${log-root}/log-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder class="JsonEncoder">
+        </encoder>
+    </appender>
+
+    <appender name="FileTextAppender" class="RollingFileAppender">
+        <file>${log-root}/log.log</file>
+        <rollingPolicy class="TimeBasedRollingPolicy">
+            <fileNamePattern>${log-root}/log-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder class="LayoutWrappingEncoder">
+            <pattern>${log-pattern}</pattern>
+        </encoder>
+    </appender>
+
+    
+    
+    <appender name="testAppender" class="ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <includeMdc>true</includeMdc>
+        </encoder>
+    </appender>
+
+    <appender name="stash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>127.0.0.1:4560</destination>
+
+        <!-- encoder is required -->
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
+    </appender>
+
+
+    <root>
+        <level value="INFO" />
+        <!-- <appender-ref ref="Console${appender-type}Appender" /> -->
+        <!-- <appender-ref ref="stash" /> -->
+        <appender-ref ref="ConsoleTextAppender" />
+        <!-- <appender-ref ref="ConsoleJsonAppender" /> -->
+        <!-- <appender-ref ref="FileJsonAppender" /> -->
+    </root>
+
+</configuration>
