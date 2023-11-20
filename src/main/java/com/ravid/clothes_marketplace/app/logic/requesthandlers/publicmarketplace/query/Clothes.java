@@ -78,7 +78,7 @@ public class Clothes extends RequestHandler {
         
         var marker = new ObjectFieldsAppendingMarker(res);
         log.info(marker, "clothes");
-
+        
         return (ResponseEntity<T>) ResponseEntity.ok(res);
     }
 

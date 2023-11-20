@@ -22,7 +22,7 @@ springdoc:
 server:
   http2:
     enabled: true
-  port: 2000
+  port: ${PORT}
   # additional-ports: 2004
   ssl:
     # client-auth: need
@@ -35,7 +35,6 @@ server:
 logging:
   # config: classpath:logback-spring.xml
   app-log-root: ${LOG_ROOT:-log}
-  log-pattern: "%d{yyyy-MM-dd HH:mm:ss.SSS} %5p ---[%5.15t] %-20.40c{1} : %msg%n%ex"
   appender-type: ${LOGGER_APPENDER:-Text}
 jwt:
   secret: "c3VwZXItc2VjcmV0LXN0cmluZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dn"
