@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.ravid.clothes_marketplace.app.interceptors.IncomingRequestInterceptor;
 
@@ -19,5 +20,10 @@ public class WebConfigurator implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry){
         registry.addInterceptor(bearerTokenAuthInterceptor());
+    }
+
+    @Bean
+    public InternalResourceViewResolver defaultViewResolver() {
+      return new InternalResourceViewResolver();
     }
 }

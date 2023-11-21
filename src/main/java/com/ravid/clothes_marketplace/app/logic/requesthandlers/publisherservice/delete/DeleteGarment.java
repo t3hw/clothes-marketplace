@@ -42,9 +42,7 @@ public class DeleteGarment extends RequestHandler {
         return (ResponseEntity<T>) ResponseEntity.noContent().build();
     }
 
-    // Abstract class initilization
     public DeleteGarment(Integer garmentId, String publisherId) {
-        super(null);
         this.garmentId = garmentId;
         this.publisherId = publisherId;
     }

@@ -24,8 +24,9 @@ import com.ravid.clothes_marketplace.server.model.PublisherDTO;
 import jakarta.validation.constraints.Size;
 import lombok.extern.slf4j.Slf4j;
 // import net.logstash.logback.marker.ObjectFieldsAppendingMarker;
+import net.logstash.logback.marker.ObjectFieldsAppendingMarker;
 
-@Component("clothes")
+@Component("marketplace.clothes")
 @Scope(value = WebApplicationContext.SCOPE_REQUEST,proxyMode = ScopedProxyMode.DEFAULT)
 @Lazy
 @Slf4j
@@ -76,17 +77,15 @@ public class Clothes extends RequestHandler {
             );
         }
         
-        // var marker = new ObjectFieldsAppendingMarker(res);
-        // log.info(marker, "clothes");
+        var marker = new ObjectFieldsAppendingMarker(res);
+        log.info(marker, "clothes");
         
         return (ResponseEntity<T>) ResponseEntity.ok(res);
     }
 
-    // Abstract class initilization
     public Clothes(Optional<String> sellerName, Optional<@Size(max = 9) String> sellerId, 
                    Optional<String> garmentType, Optional<Float> minPrice,
                    Optional<Float> maxPrice, Optional<String> size) {
-        super(null);
         this.publisherNamePattern = sellerName;
         this.publisherId = sellerId;
         this.type = garmentType;

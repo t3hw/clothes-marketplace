@@ -57,9 +57,7 @@ public class PublishNewGarment extends RequestHandler {
         return (ResponseEntity<T>) ResponseEntity.ok(new GarmentResponseDTO().garmentId(garment.getId()));
     }
 
-    // Abstract class initilization
     public PublishNewGarment(GarmentPOSTRequestDTO req, String publisherId) {
-        super(null);
         this.req = req;
         this.publisherId = publisherId;
     }

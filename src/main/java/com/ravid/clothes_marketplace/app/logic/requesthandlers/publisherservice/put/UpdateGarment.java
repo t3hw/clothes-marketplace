@@ -60,9 +60,7 @@ public class UpdateGarment extends RequestHandler {
         return (ResponseEntity<T>) ResponseEntity.noContent().build();
     }
 
-    // Abstract class initilization
     public UpdateGarment(Integer garmentId, GarmentPUTRequestDTO req, String publisherId) {
-        super(null);
         this.garmentId = garmentId;
         this.req = req;
         this.publisherId = publisherId;

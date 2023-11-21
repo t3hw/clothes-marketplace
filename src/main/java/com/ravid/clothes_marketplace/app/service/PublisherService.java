@@ -7,7 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.ravid.clothes_marketplace.app.interceptors.RequestScopeData;
-import com.ravid.clothes_marketplace.app.logic.requesthandlers.RequestHandler;
+import com.ravid.clothes_marketplace.app.logic.requesthandlers.publisherservice.delete.DeleteGarment;
+import com.ravid.clothes_marketplace.app.logic.requesthandlers.publisherservice.post.PublishNewGarment;
+import com.ravid.clothes_marketplace.app.logic.requesthandlers.publisherservice.put.UpdateGarment;
 import com.ravid.clothes_marketplace.server.api.PublisherApiDelegate;
 import com.ravid.clothes_marketplace.server.model.GarmentPOSTRequestDTO;
 import com.ravid.clothes_marketplace.server.model.GarmentPUTRequestDTO;
@@ -23,19 +25,19 @@ public class PublisherService implements PublisherApiDelegate, ApplicationContex
     @Override
     public ResponseEntity<Void> deleteGarment(Integer id) {
         RequestScopeData data = context.getBean(RequestScopeData.class);
-        return ((RequestHandler) context.getBean(data.getControllerName() + data.getOperationName(), id, data.getUserId())).handleRequest();
+        return context.getBean(DeleteGarment.class, id, data.getUserId()).handleRequest();
     }
 
     @Override
     public ResponseEntity<GarmentResponseDTO> publishNewGarment(GarmentPOSTRequestDTO garmentRequestDTO) {
         RequestScopeData data = context.getBean(RequestScopeData.class);
-        return ((RequestHandler) context.getBean(data.getControllerName() + data.getOperationName(), garmentRequestDTO, data.getUserId())).handleRequest();
+        return context.getBean(PublishNewGarment.class, garmentRequestDTO, data.getUserId()).handleRequest();
     }
 
     @Override
     public ResponseEntity<Void> updateGarment(Integer id, GarmentPUTRequestDTO garmentRequestDTO) {
         RequestScopeData data = context.getBean(RequestScopeData.class);
-        return ((RequestHandler) context.getBean(data.getControllerName() + data.getOperationName(), id, garmentRequestDTO, data.getUserId())).handleRequest();
+        return context.getBean(UpdateGarment.class, id, garmentRequestDTO, data.getUserId()).handleRequest();
     }
     
     @Override

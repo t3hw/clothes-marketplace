@@ -64,7 +64,6 @@ public class Authenticate extends RequestHandler {
 
     // Abstract class initilization
     public Authenticate(AuthenticationRequestDTO req) {
-        super(null);
         this.req = req;
     }
 }

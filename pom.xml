@@ -173,6 +173,7 @@
                         </executions>
                         <configuration>
                             <buildArgs>
+                                <arg>-Ob</arg>
                                 <arg>--initialize-at-build-time=ch.qos.logback</arg>
                             </buildArgs>
                         </configuration>

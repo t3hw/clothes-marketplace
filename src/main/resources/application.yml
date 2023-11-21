@@ -5,11 +5,13 @@ clothes-marketplace:
   authorization-required-uris:
     - /publisher
   authorization-allowed-uris:
+    - /
+    - /swagger-ui**
+    - /swagger-ui/**
+    - /v3/api-docs/**
     - /authenticate
     - /marketplace/**
     - /health
-    - /swagger-ui/**
-    - /v3/api-docs/**
 springdoc:
   packagesTo-scan: 
     - com.ravid.clothes_marketplace.server

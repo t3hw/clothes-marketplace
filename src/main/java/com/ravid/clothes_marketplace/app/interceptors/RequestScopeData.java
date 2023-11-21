@@ -13,13 +13,13 @@ import lombok.Setter;
 @Scope(value = WebApplicationContext.SCOPE_REQUEST,proxyMode = ScopedProxyMode.DEFAULT)
 @Lazy
 public class RequestScopeData {
+
     @Getter @Setter
     private String userId;
     @Getter
     private String requestUri;
 
-    private RequestScopeData(String requestUri) {
-        this.requestUri = requestUri;
+    private RequestScopeData() {
     }
 
     // Operation for decoupling of controller and logic
@@ -45,5 +45,10 @@ public class RequestScopeData {
             return temp;
         temp = temp.substring(0,i) + ".";    
         return temp;
+    }
+
+    public RequestScopeData init(String requestUri) {
+        this.requestUri = requestUri;
+        return this;
     }
 }
