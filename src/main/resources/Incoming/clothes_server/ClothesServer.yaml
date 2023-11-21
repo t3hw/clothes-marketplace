@@ -1,0 +1,368 @@
+openapi: 3.0.3
+info:
+  version: 1.0.1
+  title: Webz.Io Clothes Marketplace
+  description: Swagger for Webz Io Clothes Marketplace Interface
+  contact:
+    name: Ravid Gontov
+    email: rvdgntv@gmail.com
+
+paths:
+  /health:
+    get:
+      summary: Service status endpoint.
+      description: Service status endpoint.
+      responses:
+        200:
+          description: Success
+      operationId: healthCheck
+  
+  /authenticate:
+    post:
+      summary: Log in as an authenticated user
+      description: Log in and recieve an authentication JWT
+      operationId: authenticateUser
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/AuthenticationRequestDTO'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthenticationResponseDTO'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDTO'
+                
+  /marketplace/clothes:
+    get:
+      summary: retrieve a searchable list of clothing items that are offered to sale
+      description: 'Get a list of clothes, use the following path parameters to refine the list: sellerName (partial name search), sellerId, garmentType, minPrice, maxPrice, size'
+      operationId: getClothes
+      parameters:
+        - $ref: '#/components/parameters/sellerName'
+        - $ref: '#/components/parameters/sellerId'
+        - $ref: '#/components/parameters/garmentType'
+        - $ref: '#/components/parameters/minPrice'
+        - $ref: '#/components/parameters/maxPrice'
+        - $ref: '#/components/parameters/size'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClothesResponseDTO'
+        404:
+          description: Query result not found!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDTO'
+        500:
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDTO'
+  
+  /publisher/publishNewGarment/:
+    post:
+      summary: Add new garment to the market
+      description: An api for a publisher to add a new garment to sale
+      operationId: publishNewGarment
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/GarmentPOSTRequestDTO'
+      responses:
+        201:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GarmentResponseDTO'
+                
+        403:
+          description: User is not authorized, or is missing an auth token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDTO'
+        500:
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDTO'
+      security:
+        - bearerAuth: []
+  /publisher/deleteGarment/{id}/:
+    delete:
+      summary: Remove a garment from the market
+      description: An api for a publisher to unlist a garment from the market
+      operationId: deleteGarment
+      parameters:
+        - $ref: '#/components/parameters/garmentId'
+      responses:
+        204:
+          description: Success
+        403:
+          description: User is not authorized for the garment, or is missing an auth token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDTO'
+        404:
+          description: Garment not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDTO'
+        500:
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDTO'
+      security:
+        - bearerAuth: []
+  /publisher/updateGarment/{id}:
+    put:
+      summary: Add a new garment to the market
+      description: An api for a publisher to add a new garment to sale
+      operationId: updateGarment
+      parameters:
+        - $ref: '#/components/parameters/garmentId'
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/GarmentPUTRequestDTO'
+      responses:
+        204:
+          description: Success
+        403:
+          description: User is not authorized for the garment, or is missing an auth token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDTO'
+        404:
+          description: Garment not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDTO'
+        500:
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDTO'
+      security:
+        - bearerAuth: []
+components:
+  parameters:
+    garmentId:
+        name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+    sellerName:
+        name: sellerName
+        in: query
+        schema:
+          type: string
+    sellerId:
+        name: sellerId
+        in: query
+        schema:
+          type: string
+          maxLength: 9
+    garmentType:
+        name: garmentType
+        in: query
+        schema:
+          type: string
+    minPrice:
+        name: minPrice
+        in: query
+        schema:
+          type: number
+          format: float
+    maxPrice:
+        name: maxPrice
+        in: query
+        schema:
+          type: number
+          format: float
+    size:
+        name: size
+        in: query
+        schema:
+          type: string
+  schemas:
+    AuthenticationRequestDTO:
+      type: object
+      required:
+        - 'userId'
+        - 'password'
+      properties:
+        userId:
+          type: string
+          maxLength: 10
+        password:
+          type: string
+          maxLength: 15
+    AuthenticationResponseDTO:
+      type: object
+      required:
+        - token
+      properties:
+        token:
+          type: string
+    ErrorResponseDTO:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        status:
+          type: integer
+          format: int32
+        error: 
+          type: string
+        exception:
+          type: string
+        message: 
+          type: string
+        path:
+          type: string
+  
+    garmentId:
+      type: integer
+      nullable: true
+      format: int32
+      description: Internal identifier for each garment
+    garmentType: 
+      type: string
+      maxLength: 10
+      nullable: true
+      enum:
+        - Pants
+        - Shirt
+        - Socks
+        - Hat
+        - Hoodie
+        - TankTop
+        - Shoes
+    garmentSize:
+      type: string
+      maxLength: 2
+      nullable: true
+      enum:
+        - XS
+        - S
+        - M
+        - L
+        - XL
+    garmentDescription:
+      type: string
+      maxLength: 100
+      description: Describe what are you selling?
+      example: Red running shoes
+      nullable: true
+    price:
+      type: number
+      format: float
+      nullable: true
+    # DTOs
+    ClothesResponseDTO:
+      type: object
+      required:
+        - id
+        - fullName
+        - address
+      properties:
+        publisherList:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublisherDTO'
+    PublisherDTO:
+      type: object
+      properties:
+        id: 
+          maxLength: 9
+          type: string
+          description: Publisher Id
+          pattern: '^\d{9}$'
+          example: 12345682
+        fullName:
+          maxLength: 20
+          type: string
+          description: The full name of the publisher
+          example: Ravid Gontov
+        address:
+          maxLength: 30
+          type: string
+          description: The Address of the publisher
+          example: Broadway 7 New York
+        garments: 
+          type: array
+          items:
+            $ref: '#/components/schemas/GarmentResponseDTO'
+      description: Publisher for clothes items query
+    GarmentPOSTRequestDTO:
+      type: object
+      properties:
+        garmentType:
+          $ref: '#/components/schemas/garmentType'
+        garmentDescription:
+          $ref: '#/components/schemas/garmentDescription'
+        garmentSize:
+          $ref: '#/components/schemas/garmentSize'
+        price:
+          $ref: '#/components/schemas/price'
+    GarmentPUTRequestDTO:
+      type: object
+      properties:
+        garmentId:
+          $ref: '#/components/schemas/garmentId'
+        garmentType:
+          $ref: '#/components/schemas/garmentType'
+        garmentDescription:
+          $ref: '#/components/schemas/garmentDescription'
+        garmentSize:
+          $ref: '#/components/schemas/garmentSize'
+        price:
+          $ref: '#/components/schemas/price'
+    GarmentResponseDTO:
+      type: object
+      properties:
+        garmentId:
+          $ref: '#/components/schemas/garmentId'
+        garmentType:
+          $ref: '#/components/schemas/garmentType'
+        garmentDescription:
+          $ref: '#/components/schemas/garmentDescription'
+        garmentSize:
+          $ref: '#/components/schemas/garmentSize'
+        price:
+          $ref: '#/components/schemas/price'
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -17,14 +17,10 @@
     <springProperty name="log-root" source="logging.app-log-root"/>
     <springProperty name="appender-type" source="logging.appender-type"/>
 
-    <!-- <property name="APP_LOG_ROOT" value="${env:LOG_ROOT:-log}" />
-    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %5p %hostName-[%5.5t] %-20.20c{1} : %m%n%ex" />
-    <property name="APPENDER_TYPE" value="${env:LOGGER_APPENDER:-Text}" /> -->
-
     <!-- Console Appenders -->
     <appender name="ConsoleTextAppender" class="ConsoleAppender">
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS+T} %5p --- [%10.15t] %-20.40c{1} : %m %marker%n%rEx{10}</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %5p --- [%10.15t] %-20.40c{1} : %m %marker%n%rEx{10}</pattern>
         </encoder>
     </appender>
 
@@ -66,7 +62,7 @@
     </appender>
 
 
-    <root>
+    <root additivity="false">
         <level value="warn" />
         <appender-ref ref="ConsoleTextAppender" />
     </root>
